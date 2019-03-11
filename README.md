@@ -3,7 +3,7 @@ LUX MED appointments sniper
 =======================================
 Simple tool to notify about available slot in LUX MED medical care service using pushover notifications.
 
-How to use MediSnip?
+How to use LuxmedSniper?
 --------------------
 First of all create virtualenv and install python requirements from requirements.txt
 
