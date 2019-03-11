@@ -1,6 +1,6 @@
 luxmed:
-  email: EMAIL # Medicover MRN (your card number)
-  password: PASSWORD # Medicover account password
+  email: EMAIL
+  password: PASSWORD
 luxmedsniper: #                     mandatory  mandatory
   doctor_locator_id: 5*4430*-1*-1 # (city_id, service_id, clinic_id, doctor_multi_identyfier) -1 means any.
                                   # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
