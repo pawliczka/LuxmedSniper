@@ -30,7 +30,6 @@ class LuxMedSniper:
         self._loadConfiguration(configuration_file)
         self._createSession()
         self._logIn()
-        self.db = shelve.open(self.config['misc']['notifydb'])
         pushover.init(self.config['pushover']['api_token'])
         self.pushoverClient = pushover.Client(self.config['pushover']['user_key'])
 
@@ -54,7 +53,7 @@ class LuxMedSniper:
         except IOError:
             raise Exception('Cannot open configuration file ({file})!'.format(file=configuration_file))
         try:
-            self.config = yaml.load(config_data)
+            self.config = yaml.load(config_data, Loader=yaml.FullLoader)
         except Exception as yaml_error:
             raise Exception('Configuration problem: {error}'.format(error=yaml_error))
 
@@ -146,16 +145,20 @@ class LuxMedSniper:
                 self.log.info('Notification was already sent.')
 
     def _addToDatabase(self, appointment):
-        notifications = self.db.get(appointment['DoctorName'], [])
+        db = shelve.open(self.config['misc']['notifydb'])
+        notifications = db.get(appointment['DoctorName'], [])
         notifications.append(appointment['AppointmentDate'])
-        self.db[appointment['DoctorName']] = notifications
+        db[appointment['DoctorName']] = notifications
+        db.close()
 
     def _sendNotification(self, appointment):
         self.pushoverClient.send_message(self.config['pushover']['message_template'].format(
             **appointment, title=self.config['pushover']['title']))
 
     def _isAlreadyKnown(self, appointment):
-        notifications = self.db.get(appointment['DoctorName'], [])
+        db = shelve.open(self.config['misc']['notifydb'])
+        notifications = db.get(appointment['DoctorName'], [])
+        db.close()
         if appointment['AppointmentDate'] in notifications:
             return True
         return False
