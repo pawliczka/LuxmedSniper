@@ -1,0 +1,14 @@
+beautifulsoup4==4.7.1
+certifi==2019.3.9
+chardet==3.0.4
+colorama==0.4.1
+coloredlogs==10.0
+humanfriendly==4.18
+idna==2.8
+pyreadline==2.1
+python-pushover==0.4
+PyYAML==3.13
+requests==2.21.0
+schedule==0.6.0
+soupsieve==1.8
+urllib3==1.24.1

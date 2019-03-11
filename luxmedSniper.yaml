@@ -1,0 +1,15 @@
+luxmed:
+  email: EMAIL # Medicover MRN (your card number)
+  password: PASSWORD # Medicover account password
+luxmedsniper: #                     mandatory  mandatory
+  doctor_locator_id: 5*4430*-1*-1 # (city_id, service_id, clinic_id, doctor_multi_identyfier) -1 means any.
+                                  # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
+                                  # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by chrome dev tools
+  lookup_time_days: 60 # How many days from now should script look at.
+pushover:
+  user_key: PUSHOVER_USER_KEY # Your pushover.net user key
+  api_token: API_TOKEN # pushover.net App API Token
+  message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}"
+  title: "New Lux Med visit available!" # Pushover message topic
+misc:
+  notifydb: ./surgeon_data # State file used to remember which notifications has been sent already
