@@ -6,7 +6,7 @@ import coloredlogs
 import logging
 import os
 import datetime
-import pushover
+from pushbullet import Pushbullet
 import shelve
 import schedule
 import time
@@ -30,8 +30,7 @@ class LuxMedSniper:
         self._loadConfiguration(configuration_file)
         self._createSession()
         self._logIn()
-        pushover.init(self.config['pushover']['api_token'])
-        self.pushoverClient = pushover.Client(self.config['pushover']['user_key'])
+        self.pb = Pushbullet(self.config['pushbullet']['api_key'])
 
     def _createSession(self):
         self.session = requests.session()
@@ -131,6 +130,7 @@ class LuxMedSniper:
 
     def check(self):
         appointments = self._getAppointments()
+        knownAppointments = 0
         if not appointments:
             self.log.info("No appointments found.")
             return
@@ -138,9 +138,13 @@ class LuxMedSniper:
             self.log.info(
                 "Appointment found! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
                     **appointment))
-            if not self._isAlreadyKnown(appointment):
+            if not self._isAlreadyKnown(appointment) and knownAppointments < self.config['misc']['max_number_of_visits']:
+                knownAppointments += 1
                 self._addToDatabase(appointment)
                 self._sendNotification(appointment)
+                self.log.info(
+                "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
+                    **appointment))
             else:
                 self.log.info('Notification was already sent.')
 
@@ -152,8 +156,7 @@ class LuxMedSniper:
         db.close()
 
     def _sendNotification(self, appointment):
-        self.pushoverClient.send_message(self.config['pushover']['message_template'].format(
-            **appointment, title=self.config['pushover']['title']))
+        self.pb.push_note(self.config['pushbullet']['title'], self.config['pushbullet']['message_template'].format(**appointment))
 
     def _isAlreadyKnown(self, appointment):
         db = shelve.open(self.config['misc']['notifydb'])
