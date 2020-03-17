@@ -17,17 +17,17 @@ luxmedsniper: #                     mandatory  mandatory
                                   # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
                                   # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by chrome dev tools
   lookup_time_days: 60 # How many days from now should script look at.
-pushover:
-  user_key: PUSHOVER_USER_KEY # Your pushover.net user key
-  api_token: API_TOKEN # pushover.net App API Token
+pushbullet:
+  api_key: "o.SETmU9muaH4Mi1QUiqIkCLcTVcycJo3N" # Your Pushbullet api key
   message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}"
-  title: "New Lux Med visit available!" # Pushover message topic
+  title: "New Lux Med visit available!" # Pushbullet message topic
 misc:
   notifydb: ./surgeon_data # State file used to remember which notifications has been sent already
+  max_number_of_visits: 3
 ```
 
 2) Run it
 ```
 nohup python3 luxmedSnip.py -c /path/to/my_favourite_surgeon.yml &
 ```
-3) Wait for new appointment notifications in your pushover app on mobile :)!
+3) Wait for new appointment notifications in your pushbullet app on mobile :)!

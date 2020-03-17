@@ -1,0 +1,73 @@
+Miasto	CityId
+Bydgoszcz	10
+Elbląg	63
+Gorzów Wielkopolski	60
+Katowice	17
+Kraków	3
+Leżajsk	62
+Łódź	4
+Olsztyn	20
+Opole	21
+Poznań	8
+Rzeszów	74
+Szczecin	24
+Toruń	73
+Trójmiasto	45
+Tychy	25
+Warszawa	1
+Wrocław	5
+
+Placowka_Wroclaw	ClinicId
+Fabryczna	2100
+Legnicka	41
+Olawska 97
+Swobodna	1338
+Wołowska	42
+Szewska 6
+Dominikański	12
+Świdnicka 1792
+
+Specjalista	ServiceId
+Konsultacja alergologa	4387
+Konsultacja chirurga dzieci	4394
+Konsultacja chirurga naczyniowego	4406
+Konsultacja chirurga ogólnego	4412
+Konsultacja chirurga onkologa	4418
+Konsultacja chirurga plastyka	4424
+Konsultacja dermatologa	4448
+Konsultacja diabetologa	4453
+Konsultacja endokrynologa	4461
+Konsultacja flebologiczna	6748
+Konsultacja gastroenterologa	4468
+Konsultacja geriatry	8286
+Konsultacja ginekologa	4480
+Konsultacja ginekologa - endokrynologa	4473
+Konsultacja hematologa	4486
+Konsultacja hepatologa	4491
+Konsultacja immunologa	7138
+Konsultacja internisty	4502
+Konsultacja kardiologa	4510
+Konsultacja laryngologa	4522
+Konsultacja lekarza rodzinnego	4528
+Konsultacja nefrologa	4534
+Konsultacja neurochirurga	4540
+Konsultacja neurologa	4549
+Konsultacja neurologa - dzieci	7056
+Konsultacja okulisty	4565
+Konsultacja okulisty - dzieci	7681
+Konsultacja onkologa	4572
+Konsultacja ortopedy	4436
+Konsultacja ortopedy - dzieci	7678
+Konsultacja pediatry - szczepienia dzieci do lat 6	8752
+Konsultacja pediatry - w gabinecie dzieci chorych	7409
+Konsultacja pediatry - w gabinecie dzieci zdrowych	7408
+Konsultacja pediatry - w gabinecie dzieci zdrowych - bilans	9190
+Konsultacja proktologa	4430
+Konsultacja pulmonologa	4598
+Konsultacja reumatologa	4604
+Konsultacja urologa	4614
+Kwalifikacja - do szczepienia dzieci powyżej 6 r.ż.	4106
+Umówienie wizyty na scaling (usuwanie złogów)	9756
+Umówienie wizyty u chirurga stomatologa	8904
+Umówienie wizyty u stomatologa	6621
+Umówienie wizyty u stomatologa dziecięcego	8914
