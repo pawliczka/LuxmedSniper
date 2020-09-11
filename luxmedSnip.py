@@ -1,17 +1,18 @@
-import requests
-from bs4 import BeautifulSoup
 import argparse
 import yaml
 import coloredlogs
+import json
 import logging
 import os
 import datetime
 from pushbullet import Pushbullet
 import shelve
 import schedule
+import string
+import random
+import requests
 import time
 
-# Setup logging
 coloredlogs.install(level="INFO")
 log = logging.getLogger("main")
 
@@ -20,13 +21,11 @@ class LuxMedSniper:
     LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogIn'
     LUXMED_LOGOUT_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogOn'
     MAIN_PAGE_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal'
-    REQUEST_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch'
+    NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/NewPortal/terms/index'
 
     def __init__(self, configuration_file="luxmedSniper.yaml"):
         self.log = logging.getLogger("LuxMedSniper")
         self.log.info("LuxMedSniper logger initialized")
-        # Open configuration file
-
         self._loadConfiguration(configuration_file)
         self._createSession()
         self._logIn()
@@ -61,76 +60,53 @@ class LuxMedSniper:
         resp = self.session.post(self.LUXMED_LOGIN_URL, login_data)
         if resp.text.find('Nieprawidłowy login lub hasło.') != -1:
             raise Exception("Login or password is incorrect")
-        soup = BeautifulSoup(resp.text, "html.parser")
-        self.requestVerificationToken = soup.find('input', {'name': '__RequestVerificationToken'}).get('value')
-        self.log.info("Successfully logged in! (RequestVerificationToken: {token}".format(
-            token=self.requestVerificationToken
-        ))
+        self.log.info('Successfully logged in!')
 
-    def _parseVisits(self, page_data):
-        s = BeautifulSoup(page_data, "html.parser")
+    def _parseVisitsNewPortal(self, data):
         appointments = []
-        visits = s.findAll('li')
-        for visit in visits:
-            date = visit.find('div', {'class': 'col-md-8'})
-            if not date:
+        content = json.loads(data)
+        end_time = datetime.datetime.now() + datetime.timedelta(
+            days=self.config['luxmedsniper']['lookup_time_days'])
+        for day in content['termsForService']['termsForDays']:
+            if end_time < datetime.datetime.fromisoformat(day['day']):
                 continue
-            date = date.getText().strip()
-            reserveTable = visit.find('table', {'class': 'reserveTable'})
-            for reservation in reserveTable.findAll('tr')[1:]:
-                if reservation.find('td', {'class': 'action-buttons'}):
-                    continue
-                divs = reservation.findAll('div')
-                time = divs[0].getText().strip()[:-9]
-                doctorName = divs[1].getText().strip()
-                serviceName = divs[2].getText().strip()
-                location = divs[3].getText().strip()
-                rest = divs[4:]
-                additionalInfo = []
-                for res in rest:
-                    additionalInfo.append(" ".join(res.getText().split()))
+            for term in day['terms']:
                 appointments.append(
-                    {'AppointmentDate': '%s %s' % (date, time), 'ClinicPublicName': location, 'DoctorName': doctorName,
-                     'SpecialtyName': serviceName, 'AdditionalInfo': " ".join(additionalInfo)})
+                    {'AppointmentDate': '%s' % term['dateTimeFrom'], 'ClinicPublicName': term['clinic'],
+                     'DoctorName': '%s %s' % (term['doctor']['firstName'], term['doctor']['lastName']),
+                     'SpecialtyName': content['termsForService']['serviceVariantName'], 'AdditionalInfo': " "})
         return appointments
 
-    def _getAppointments(self):
+    def _getAppointmentsNewPortal(self):
         try:
-            (city_id, service_id, clinic_id, doctor_multi_identyfier) = self.config['luxmedsniper'][
+            (cityId, serviceVariantId, facilitiesIds, doctorsIds) = self.config['luxmedsniper'][
                 'doctor_locator_id'].strip().split('*')
         except ValueError:
             raise Exception('DoctorLocatorID seems to be in invalid format')
         data = {
-            '__RequestVerificationToken': self.requestVerificationToken,
-            'DateOption': 'SelectedDate',
-            'FilterType': 'Ffs',
-            'CoordinationActivityId': 0,
-            'IsFFS': 'True',
-            'MaxPeriodLength': 0,
-            'IsDisabled': 'True',
-            'PayersCount': 0,
-            'FromDate': datetime.datetime.now().strftime("%d.%m.%Y"),
-            'ToDate': datetime.datetime.now() + datetime.timedelta(days=self.config['luxmedsniper']['lookup_time_days']),
-            'DefaultSearchPeriod': 14,
-            'CustomRangeSelected': 'True',
-            'SelectedSearchPeriod': 14,
-            'CityId': city_id,
-            'DateRangePickerButtonDefaultLabel': 'Inny zakres',
-            'ServiceId': service_id,
-            'TimeOption': 0,
-            'PayerId': '',
-            'LanguageId': ''}
-        if clinic_id != -1:
-            data['ClinicId'] = clinic_id
-        if doctor_multi_identyfier != -1:
-            data['DoctorMultiIdentyfier'] = doctor_multi_identyfier
+            'cityId': cityId,
+            'serviceVariantId': serviceVariantId,
+            'languageId': 10,
+            'searchDateFrom': datetime.datetime.now().strftime("%Y-%m-%d"),
+            'searchDateTo': (datetime.datetime.now() + datetime.timedelta(
+                days=self.config['luxmedsniper']['lookup_time_days'])).strftime("%Y-%m-%d"),
+            'searchDatePreset': self.config['luxmedsniper']['lookup_time_days'],
+            'processId': '8da70300-e1b7-4016-be85-%s' % ''.join(
+                random.choices(string.ascii_lowercase + string.digits, k=12)),
+            'triageResult': 3,
+            'nextSearch': 'false',
+            'searchByMedicalSpecialist': 'false'
+        }
+        if facilitiesIds != -1:
+            data['facilitiesIds'] = facilitiesIds
+        if doctorsIds != -1:
+            data['doctorsIds'] = doctorsIds
 
-        r = self.session.post(self.REQUEST_RESERVATION_URL, data)
-        return self._parseVisits(r.text)
+        r = self.session.get(self.NEW_PORTAL_RESERVATION_URL, params=data)
+        return self._parseVisitsNewPortal(r.text)
 
     def check(self):
-        appointments = self._getAppointments()
-        knownAppointments = 0
+        appointments = self._getAppointmentsNewPortal()
         if not appointments:
             self.log.info("No appointments found.")
             return
@@ -138,13 +114,12 @@ class LuxMedSniper:
             self.log.info(
                 "Appointment found! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
                     **appointment))
-            if not self._isAlreadyKnown(appointment) and knownAppointments < self.config['misc']['max_number_of_visits']:
-                knownAppointments += 1
+            if not self._isAlreadyKnown(appointment):
                 self._addToDatabase(appointment)
                 self._sendNotification(appointment)
                 self.log.info(
-                "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
-                    **appointment))
+                    "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
+                        **appointment))
             else:
                 self.log.info('Notification was already sent.')
 
@@ -166,12 +141,14 @@ class LuxMedSniper:
             return True
         return False
 
+
 def work(config):
     try:
         luxmedSniper = LuxMedSniper(configuration_file=config)
         luxmedSniper.check()
     except Exception as s:
         log.error(s)
+
 
 if __name__ == "__main__":
     log.info("LuxMedSniper - Lux Med Appointment Sniper")
