@@ -5,11 +5,9 @@ import json
 import logging
 import os
 import datetime
-from pushbullet import Pushbullet
+import pushover
 import shelve
 import schedule
-import string
-import random
 import requests
 import time
 
@@ -18,10 +16,8 @@ log = logging.getLogger("main")
 
 
 class LuxMedSniper:
-    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogIn'
-    LUXMED_LOGOUT_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogOn'
-    MAIN_PAGE_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal'
-    NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/NewPortal/terms/index'
+    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
+    NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/visits/available-terms'
 
     def __init__(self, configuration_file="luxmedSniper.yaml"):
         self.log = logging.getLogger("LuxMedSniper")
@@ -29,16 +25,17 @@ class LuxMedSniper:
         self._loadConfiguration(configuration_file)
         self._createSession()
         self._logIn()
-        self.pb = Pushbullet(self.config['pushbullet']['api_key'])
+        pushover.init(self.config['pushover']['api_token'])
+        self.pushoverClient = pushover.Client(self.config['pushover']['user_key'])
 
     def _createSession(self):
         self.session = requests.session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'})
-        self.session.headers.update(
-            {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'})
-        self.session.headers.update({'Referer': self.LUXMED_LOGOUT_URL})
-        self.session.cookies.update({'LXCookieMonit': '1'})
+            'Custom-User-Agent': 'PatientPortal; 3.20.5; 4380E6AC-D291-4895-8B1B-F774C318BD7D; iOS; 13.5.1; iPhone8,1'})
+        self.session.headers.update({
+            'User-Agent': 'PatientPortal/3.20.5 (pl.luxmed.pp.LUX-MED; build:853; iOS 13.5.1) Alamofire/4.9.1'})
+        self.session.headers.update({'Accept-Language': 'en;q=1.0, en-PL;q=0.9, pl-PL;q=0.8, ru-PL;q=0.7, uk-PL;q=0.6'})
+        self.session.headers.update({'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5'})
 
     def _loadConfiguration(self, configuration_file):
         try:
@@ -56,51 +53,46 @@ class LuxMedSniper:
             raise Exception('Configuration problem: {error}'.format(error=yaml_error))
 
     def _logIn(self):
-        login_data = {'LogIn': self.config['luxmed']['email'], 'Password': self.config['luxmed']['password']}
+        login_data = {'grant_type': 'password', 'client_id': 'iPhone', 'username': self.config['luxmed']['email'],
+                      'password': self.config['luxmed']['password']}
         resp = self.session.post(self.LUXMED_LOGIN_URL, login_data)
-        if resp.text.find('Nieprawidłowy login lub hasło.') != -1:
-            raise Exception("Login or password is incorrect")
+        content = json.loads(resp.text)
+        self.access_token = content['access_token']
+        self.refresh_token = content['refresh_token']
+        self.token_type = content['token_type']
+        self.session.headers.update({'Authorization': '%s %s' % (self.token_type, self.access_token)})
         self.log.info('Successfully logged in!')
 
     def _parseVisitsNewPortal(self, data):
         appointments = []
         content = json.loads(data)
-        end_time = datetime.datetime.now() + datetime.timedelta(
-            days=self.config['luxmedsniper']['lookup_time_days'])
-        for day in content['termsForService']['termsForDays']:
-            if end_time < datetime.datetime.fromisoformat(day['day']):
-                continue
-            for term in day['terms']:
-                appointments.append(
-                    {'AppointmentDate': '%s' % term['dateTimeFrom'], 'ClinicPublicName': term['clinic'],
-                     'DoctorName': '%s %s' % (term['doctor']['firstName'], term['doctor']['lastName']),
-                     'SpecialtyName': content['termsForService']['serviceVariantName'], 'AdditionalInfo': " "})
+        for term in content['AvailableVisitsTermPresentation']:
+            appointments.append(
+                {'AppointmentDate': '%s' % term['VisitDate']['FormattedDate'],
+                 'ClinicPublicName': term['Clinic']['Name'],
+                 'DoctorName': '%s' % term['Doctor']['Name']})
         return appointments
 
     def _getAppointmentsNewPortal(self):
         try:
-            (cityId, serviceVariantId, facilitiesIds, doctorsIds) = self.config['luxmedsniper'][
+            (cityId, serviceId, clinicId, doctorId) = self.config['luxmedsniper'][
                 'doctor_locator_id'].strip().split('*')
         except ValueError:
             raise Exception('DoctorLocatorID seems to be in invalid format')
         data = {
             'cityId': cityId,
-            'serviceVariantId': serviceVariantId,
+            'payerId': 123,
+            'serviceId': serviceId,
             'languageId': 10,
-            'searchDateFrom': datetime.datetime.now().strftime("%Y-%m-%d"),
-            'searchDateTo': (datetime.datetime.now() + datetime.timedelta(
-                days=self.config['luxmedsniper']['lookup_time_days'])).strftime("%Y-%m-%d"),
-            'searchDatePreset': self.config['luxmedsniper']['lookup_time_days'],
-            'processId': '8da70300-e1b7-4016-be85-%s' % ''.join(
-                random.choices(string.ascii_lowercase + string.digits, k=12)),
-            'triageResult': 3,
-            'nextSearch': 'false',
-            'searchByMedicalSpecialist': 'false'
+            'FromDate': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'ToDate': (datetime.datetime.now() + datetime.timedelta(
+                days=self.config['luxmedsniper']['lookup_time_days'])).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'searchDatePreset': self.config['luxmedsniper']['lookup_time_days']
         }
-        if facilitiesIds != -1:
-            data['facilitiesIds'] = facilitiesIds
-        if doctorsIds != -1:
-            data['doctorsIds'] = doctorsIds
+        if clinicId != '-1':
+            data['clinicId'] = clinicId
+        if doctorId != '-1':
+            data['doctorId'] = doctorId
 
         r = self.session.get(self.NEW_PORTAL_RESERVATION_URL, params=data)
         return self._parseVisitsNewPortal(r.text)
@@ -112,13 +104,13 @@ class LuxMedSniper:
             return
         for appointment in appointments:
             self.log.info(
-                "Appointment found! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
+                "Appointment found! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
                     **appointment))
             if not self._isAlreadyKnown(appointment):
                 self._addToDatabase(appointment)
                 self._sendNotification(appointment)
                 self.log.info(
-                    "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}".format(
+                    "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
                         **appointment))
             else:
                 self.log.info('Notification was already sent.')
@@ -131,7 +123,8 @@ class LuxMedSniper:
         db.close()
 
     def _sendNotification(self, appointment):
-        self.pb.push_note(self.config['pushbullet']['title'], self.config['pushbullet']['message_template'].format(**appointment))
+        self.pushoverClient.send_message(self.config['pushover']['message_template'].format(
+            **appointment, title=self.config['pushover']['title']))
 
     def _isAlreadyKnown(self, appointment):
         db = shelve.open(self.config['misc']['notifydb'])
