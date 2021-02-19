@@ -13,17 +13,17 @@ luxmed:
   email: EMAIL
   password: PASSWORD
 luxmedsniper: #                     mandatory  mandatory
-  doctor_locator_id: 5*4430*-1*-1 # (city_id, service_id, clinic_id, doctor_multi_identyfier) -1 means any.
+  doctor_locator_id: 5*4430*-1*-1 # (cityId, serviceVariantId, facilitiesIds, doctorsIds) -1 means any.
                                   # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
                                   # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by chrome dev tools
-  lookup_time_days: 60 # How many days from now should script look at.
-pushbullet:
-  api_key: "o.SETmU9muaH4Mi1QUiqIkCLcTVcycJo3N" # Your Pushbullet api key
-  message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName} ({SpecialtyName}) {AdditionalInfo}"
-  title: "New Lux Med visit available!" # Pushbullet message topic
+  lookup_time_days: 14 # How many days from now should script look at.
+pushover:
+  user_key: # Your pushover.net user key
+  api_token:  # pushover.net App API Token
+  message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName}"
+  title: "New Lux Med visit available!" # Pushover message topic
 misc:
   notifydb: ./surgeon_data # State file used to remember which notifications has been sent already
-  max_number_of_visits: 3
 ```
 
 2) Run it
