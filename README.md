@@ -30,4 +30,4 @@ misc:
 ```
 nohup python3 luxmedSnip.py -c /path/to/my_favourite_surgeon.yml &
 ```
-3) Wait for new appointment notifications in your pushbullet app on mobile :)!
+3) Wait for new appointment notifications in your pushover app on mobile :)!

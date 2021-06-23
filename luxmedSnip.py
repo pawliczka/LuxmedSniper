@@ -92,7 +92,10 @@ class LuxMedSniper:
         if clinicId != '-1':
             data['clinicId'] = clinicId
         if doctorId != '-1':
-            data['doctorId'] = doctorId
+            if ',' in doctorId:
+                data['doctorId'] = doctorId.split(',')    
+            else:
+                data['doctorId'] = doctorId
 
         r = self.session.get(self.NEW_PORTAL_RESERVATION_URL, params=data)
         return self._parseVisitsNewPortal(r.text)
