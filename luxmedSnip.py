@@ -152,7 +152,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-d", "--delay",
-        type=int, help="Delay in s of fetching updates", default="30"
+        type=int, help="Delay in s of fetching updates", default="1800"
     )
     args = parser.parse_args()
     work(args.config)
