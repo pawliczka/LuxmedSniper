@@ -31,3 +31,9 @@ misc:
 nohup python3 luxmedSnip.py -c /path/to/my_favourite_surgeon.yml &
 ```
 3) Wait for new appointment notifications in your pushover app on mobile :)!
+
+# Warning
+
+Please be advised that running too many queries against LuxMed API may result in locking your LuxMed account.
+Breaching the 'fair use policy' for the first time locks the account temporarily for 1 day.
+Breaching it again locks it indefinitelly and manual intervention with "Patient Portal Support" is required to unlock it.
