@@ -150,9 +150,13 @@ if __name__ == "__main__":
         "-c", "--config",
         help="Configuration file path", default="luxmedSniper.yaml"
     )
+    parser.add_argument(
+        "-d", "--delay",
+        type=int, help="Delay in s of fetching updates", default="30"
+    )
     args = parser.parse_args()
     work(args.config)
-    schedule.every(30).seconds.do(work, args.config)
+    schedule.every(args.delay).seconds.do(work, args.config)
     while True:
         schedule.run_pending()
         time.sleep(1)
