@@ -105,3 +105,4 @@ venv.bak/
 
 # local
 local-*.yaml
+.idea
