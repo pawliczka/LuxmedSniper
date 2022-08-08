@@ -4,12 +4,17 @@ luxmed:
 luxmedsniper: #                     mandatory  mandatory
   doctor_locator_id: 5*4430*-1*-1 # (cityId, serviceVariantId, facilitiesIds, doctorsIds) -1 means any.
                                   # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
-                                  # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by chrome dev tools
+                                  # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by Chrome dev tools
   lookup_time_days: 14 # How many days from now should script look at.
+  notification_provider: slack # slack or pushover
 pushover:
   user_key: # Your pushover.net user key
   api_token:  # pushover.net App API Token
   message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName}"
   title: "New Lux Med visit available!" # Pushover message topic
+slack:
+  api_token: # Your slack application token
+  channel: # notification channel
+  message_template: "New visit! {AppointmentDate} at {ClinicPublicName} - {DoctorName}"
 misc:
-  notifydb: ./surgeon_data # State file used to remember which notifications has been sent already
+  notifydb: ./surgeon_data # State file used to remember which notifications have been sent already

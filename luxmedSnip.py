@@ -11,6 +11,8 @@ import schedule
 import requests
 import time
 
+from slack_sdk import WebClient
+
 coloredlogs.install(level="INFO")
 log = logging.getLogger("main")
 
@@ -27,6 +29,7 @@ class LuxMedSniper:
         self._logIn()
         pushover.init(self.config['pushover']['api_token'])
         self.pushoverClient = pushover.Client(self.config['pushover']['user_key'])
+        self.slackClient = WebClient(token=self.config['slack']['api_token'])
 
     def _createSession(self):
         self.session = requests.session()
@@ -123,8 +126,13 @@ class LuxMedSniper:
         db.close()
 
     def _sendNotification(self, appointment):
-        self.pushoverClient.send_message(self.config['pushover']['message_template'].format(
-            **appointment, title=self.config['pushover']['title']))
+        try:
+            if self.config['luxmedsniper']['notification_provider'] == "pushover":
+                self.pushoverClient.send_message(self.config['pushover']['message_template'].format(**appointment, title=self.config['pushover']['title']))
+            else:
+                self.slackClient.chat_postMessage(channel=self.config['slack']['channel'], text=self.config['slack']['message_template'].format(**appointment, title=self.config['pushover']['title']))
+        except Exception as s:
+            log.error(s)
 
     def _isAlreadyKnown(self, appointment):
         db = shelve.open(self.config['misc']['notifydb'])
