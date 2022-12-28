@@ -33,12 +33,19 @@ class LuxMedSniper:
 
     def _createSession(self):
         self.session = requests.session()
+        self.session.headers.update({'Host': 'portalpacjenta.luxmed.pl'})
+        self.session.headers.update({'Origin': "https://portalpacjenta.luxmed.pl"})
+        self.session.headers.update({'Content-Type': "application/x-www-form-urlencoded"})
+        self.session.headers.update({'x-api-client-identifier': 'iPhone'})
         self.session.headers.update({
-            'Custom-User-Agent': 'PatientPortal; 4.14.0; 4380E6AC-D291-4895-8B1B-F774C318BD7D; iOS; 13.5.1; iPhone8,1'})
+            'Custom-User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, '
+                                 'like Gecko) Mobile/15E148'})
         self.session.headers.update({
-            'User-Agent': 'PatientPortal/4.14.0 (pl.luxmed.pp.LUX-MED; build:853; iOS 13.5.1) Alamofire/4.9.1'})
-        self.session.headers.update({'Accept-Language': 'en;q=1.0, en-PL;q=0.9, pl-PL;q=0.8, ru-PL;q=0.7, uk-PL;q=0.6'})
-        self.session.headers.update({'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5'})
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, '
+                          'like Gecko) Mobile/15E148'})
+        self.session.headers.update({'Accept-Language': 'pl;q=1.0, pl;q=0.9, en;q=0.8'})
+        self.session.headers.update({'Accept-Encoding': 'gzip, deflate, br'})
+        self.session.headers.update({'Accept': 'application/json, text/plain, */*'})
 
     def _loadConfiguration(self, configuration_file):
         try:
@@ -128,9 +135,17 @@ class LuxMedSniper:
     def _sendNotification(self, appointment):
         try:
             if self.config['luxmedsniper']['notification_provider'] == "pushover":
-                self.pushoverClient.send_message(self.config['pushover']['message_template'].format(**appointment, title=self.config['pushover']['title']))
+                self.pushoverClient.send_message(self.config['pushover']['message_template'].format(**appointment,
+                                                                                                    title=self.config[
+                                                                                                        'pushover'][
+                                                                                                        'title']))
             else:
-                self.slackClient.chat_postMessage(channel=self.config['slack']['channel'], text=self.config['slack']['message_template'].format(**appointment, title=self.config['pushover']['title']))
+                self.slackClient.chat_postMessage(channel=self.config['slack']['channel'],
+                                                  text=self.config['slack']['message_template'].format(**appointment,
+                                                                                                       title=
+                                                                                                       self.config[
+                                                                                                           'pushover'][
+                                                                                                           'title']))
         except Exception as s:
             log.error(s)
 
