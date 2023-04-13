@@ -1,107 +1,140 @@
 import argparse
-import yaml
-import coloredlogs
-import json
+import datetime
 import logging
 import os
-import datetime
-import pushover
+import random
 import shelve
-import schedule
-import requests
 import time
+import uuid
+import yaml
 
+from typing import List
+
+import coloredlogs
+import requests
+import schedule
 
 coloredlogs.install(level="INFO")
 log = logging.getLogger("main")
 
+APP_VERSION = "4.19.0"
+CUSTOM_USER_AGENT = f"Patient Portal; {APP_VERSION}; {str(uuid.uuid4())}; Android; {str(random.randint(23, 29))}; {str(uuid.uuid4())}"
+
 
 class LuxMedSniper:
-    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
-    NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/visits/available-terms'
+    LUXMED_TOKEN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
+    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogInToApp'
+    NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/NewPortal/terms/index'
 
     def __init__(self, configuration_file="luxmedSniper.yaml"):
         self.log = logging.getLogger("LuxMedSniper")
         self.log.info("LuxMedSniper logger initialized")
         self._loadConfiguration(configuration_file)
+        self._setup_providers()
         self._createSession()
+        self._get_access_token()
         self._logIn()
 
+    def _get_access_token(self) -> str:
+
+        authentication_body = {
+            'username': self.config['luxmed']['email'],
+            'password': self.config['luxmed']['password'],
+            "grant_type": "password",
+            "account_id": str(uuid.uuid4())[:35],
+            "client_id": str(uuid.uuid4())
+        }
+
+        response = self.session.post(LuxMedSniper.LUXMED_TOKEN_URL,
+                                     data=authentication_body)
+        content = response.json()
+        self.access_token = content['access_token']
+        self.refresh_token = content['refresh_token']
+        self.token_type = content['token_type']
+        self.session.headers.update({'Authorization': self.access_token})
+        self.log.info('Successfully received an access token!')
+
+        return response.json()["access_token"]
+
     def _createSession(self):
-        self.session = requests.session()
+        self.session = requests.Session()
         self.session.headers.update({'Host': 'portalpacjenta.luxmed.pl'})
         self.session.headers.update({'Origin': "https://portalpacjenta.luxmed.pl"})
         self.session.headers.update({'Content-Type': "application/x-www-form-urlencoded"})
         self.session.headers.update({'x-api-client-identifier': 'iPhone'})
-        self.session.headers.update({
-            'Custom-User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, '
-                                 'like Gecko) Mobile/15E148'})
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, '
-                          'like Gecko) Mobile/15E148'})
-        self.session.headers.update({'Accept-Language': 'pl;q=1.0, pl;q=0.9, en;q=0.8'})
-        self.session.headers.update({'Accept-Encoding': 'gzip, deflate, br'})
         self.session.headers.update({'Accept': 'application/json, text/plain, */*'})
+        self.session.headers.update({'Custom-User-Agent': CUSTOM_USER_AGENT})
+        self.session.headers.update({'User-Agent': 'okhttp/3.11.0'})
+        self.session.headers.update({'Accept-Language': 'en;q=1.0, en-PL;q=0.9, pl-PL;q=0.8, ru-PL;q=0.7, uk-PL;q=0.6'})
+        self.session.headers.update({'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5'})
 
     def _loadConfiguration(self, configuration_file):
         try:
-            config_data = open(
-                os.path.expanduser(
-                    configuration_file
-                ),
-                'r'
-            ).read()
+            config_data = open(os.path.expanduser(configuration_file), 'r').read()
         except IOError:
-            raise Exception('Cannot open configuration file ({file})!'.format(file=configuration_file))
+            raise Exception(
+                'Cannot open configuration file ({file})!'.format(file=configuration_file))
         try:
             self.config = yaml.load(config_data, Loader=yaml.FullLoader)
         except Exception as yaml_error:
             raise Exception('Configuration problem: {error}'.format(error=yaml_error))
 
     def _logIn(self):
-        login_data = {'grant_type': 'password', 'client_id': 'iPhone', 'username': self.config['luxmed']['email'],
-                      'password': self.config['luxmed']['password']}
-        resp = self.session.post(self.LUXMED_LOGIN_URL, login_data)
-        content = json.loads(resp.text)
-        self.access_token = content['access_token']
-        self.refresh_token = content['refresh_token']
-        self.token_type = content['token_type']
-        self.session.headers.update({'Authorization': '%s %s' % (self.token_type, self.access_token)})
+
+        params = {
+            "app": "search",
+            "client": 3,
+            "paymentSupported": "true",
+            "lang": "pl"
+        }
+        response = self.session.get(LuxMedSniper.LUXMED_LOGIN_URL, params=params)
+
+        if response.status_code != 200:
+            raise LuxmedSniperException("Unexpected response code, cannot log in")
+
         self.log.info('Successfully logged in!')
 
-    def _parseVisitsNewPortal(self, data):
+    def _parseVisitsNewPortal(self, data) -> List[dict]:
         appointments = []
-        content = json.loads(data)
-        for term in content['AvailableVisitsTermPresentation']:
-            appointments.append(
-                {'AppointmentDate': '%s' % term['VisitDate']['FormattedDate'],
-                 'ClinicPublicName': term['Clinic']['Name'],
-                 'DoctorName': '%s' % term['Doctor']['Name']})
+        content = data.json()
+        for termForDay in content["termsForService"]["termsForDays"]:
+            for term in termForDay["terms"]:
+                doctor = term['doctor']
+                appointments.append(
+                    {
+                        'AppointmentDate': term['dateTimeFrom'],
+                        'ClinicId': term['clinicId'],
+                        'ClinicPublicName': term['clinic'],
+                        'DoctorName': f'{doctor["academicTitle"]} {doctor["firstName"]} {doctor["lastName"]}',
+                        'ServiceId': term['serviceId']
+                    }
+                )
         return appointments
 
     def _getAppointmentsNewPortal(self):
         try:
-            (cityId, serviceId, clinicId, doctorId) = self.config['luxmedsniper'][
+            (cityId, serviceId, clinicIds, doctorIds) = self.config['luxmedsniper'][
                 'doctor_locator_id'].strip().split('*')
         except ValueError:
             raise Exception('DoctorLocatorID seems to be in invalid format')
-        data = {
-            'cityId': cityId,
-            'payerId': 123,
-            'serviceId': serviceId,
-            'languageId': 10,
-            'FromDate': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-            'ToDate': (datetime.datetime.now() + datetime.timedelta(
-                days=self.config['luxmedsniper']['lookup_time_days'])).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            'searchDatePreset': self.config['luxmedsniper']['lookup_time_days']
+        date_to = (datetime.date.today() + datetime.timedelta(
+            days=self.config['luxmedsniper']['lookup_time_days']))
+        params = {
+            "cityId": cityId,
+            "serviceVariantId": serviceId,
+            "languageId": 10,
+            "searchDateFrom": datetime.date.today().strftime("%Y-%m-%d"),
+            "searchDateTo": date_to.strftime("%Y-%m-%d"),
         }
-        if clinicId != '-1':
-            data['clinicId'] = clinicId
-        if doctorId != '-1':
-            data['doctorId'] = doctorId
+        if clinicIds != '-1':
+            params['facilitiesIds'] = clinicIds.split(',')
+        if doctorIds != '-1':
+            params['doctorsIds'] = doctorIds.split(',')
 
-        r = self.session.get(self.NEW_PORTAL_RESERVATION_URL, params=data)
-        return self._parseVisitsNewPortal(r.text)
+        response = self.session.get(LuxMedSniper.NEW_PORTAL_RESERVATION_URL, params=params)
+        return [*filter(
+            lambda a: datetime.datetime.fromisoformat(a['AppointmentDate']).date() <= date_to,
+            self._parseVisitsNewPortal(response))]
 
     def check(self):
         appointments = self._getAppointmentsNewPortal()
@@ -190,17 +223,20 @@ def work(config):
     except Exception as s:
         log.error(s)
 
+class LuxmedSniperException(Exception):
+    pass
+
 
 if __name__ == "__main__":
     log.info("LuxMedSniper - Lux Med Appointment Sniper")
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         "-c", "--config",
-        help="Configuration file path (default: luxmedSniper.yaml)", default="luxmedSniper.yaml"
+        help="Configuration file path", default="luxmedSniper.yaml"
     )
     parser.add_argument(
         "-d", "--delay",
-        type=int, help="Delay in s of fetching updates (default: 1800)", default="1800"
+        type=int, help="Delay in fetching updates [s]", default=1800
     )
     args = parser.parse_args()
     work(args.config)
