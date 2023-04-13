@@ -11,7 +11,6 @@ import schedule
 import requests
 import time
 
-from slack_sdk import WebClient
 
 coloredlogs.install(level="INFO")
 log = logging.getLogger("main")
@@ -27,9 +26,6 @@ class LuxMedSniper:
         self._loadConfiguration(configuration_file)
         self._createSession()
         self._logIn()
-        pushover.init(self.config['pushover']['api_token'])
-        self.pushoverClient = pushover.Client(self.config['pushover']['user_key'])
-        self.slackClient = WebClient(token=self.config['slack']['api_token'])
 
     def _createSession(self):
         self.session = requests.session()
@@ -118,7 +114,7 @@ class LuxMedSniper:
                     **appointment))
             if not self._isAlreadyKnown(appointment):
                 self._addToDatabase(appointment)
-                self._sendNotification(appointment)
+                self._send_notification(appointment)
                 self.log.info(
                     "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
                         **appointment))
@@ -132,22 +128,9 @@ class LuxMedSniper:
         db[appointment['DoctorName']] = notifications
         db.close()
 
-    def _sendNotification(self, appointment):
-        try:
-            if self.config['luxmedsniper']['notification_provider'] == "pushover":
-                self.pushoverClient.send_message(self.config['pushover']['message_template'].format(**appointment,
-                                                                                                    title=self.config[
-                                                                                                        'pushover'][
-                                                                                                        'title']))
-            else:
-                self.slackClient.chat_postMessage(channel=self.config['slack']['channel'],
-                                                  text=self.config['slack']['message_template'].format(**appointment,
-                                                                                                       title=
-                                                                                                       self.config[
-                                                                                                           'pushover'][
-                                                                                                           'title']))
-        except Exception as s:
-            log.error(s)
+    def _send_notification(self, appointment):
+        for provider in self.notification_providers:
+            provider(appointment)
 
     def _isAlreadyKnown(self, appointment):
         db = shelve.open(self.config['misc']['notifydb'])
@@ -157,6 +140,48 @@ class LuxMedSniper:
             return True
         return False
 
+    def _setup_providers(self):
+        self.notification_providers = []
+
+        providers = self.config['luxmedsniper']['notification_provider']
+
+        if "pushover" in providers:
+            import pushover
+            pushover.init(self.config['pushover']['api_token'])
+            pushoverClient = pushover.Client(self.config['pushover']['user_key'])
+            self.notification_providers.append(
+                lambda appointment: pushoverClient.send_message(
+                    self.config['pushover']['message_template'].format(**appointment, title=
+                    self.config['pushover']['title']))
+            )
+        if "slack" in providers:
+            from slack_sdk import WebClient
+            client = WebClient(token=self.config['slack']['api_token'])
+            channel = self.config['slack']['channel']
+            self.notification_providers.append(
+                lambda appointment: client.chat_postMessage(channel=channel,
+                                                            text=self.config['slack'][
+                                                                'message_template'].format(
+                                                                **appointment))
+            )
+        if "pushbullet" in providers:
+            from pushbullet import Pushbullet
+            pb = Pushbullet(self.config['pushbullet']['access_token'])
+            self.notification_providers.append(
+                lambda appointment: pb.push_note(title=self.config['pushbullet']['title'],
+                                                 body=self.config['pushbullet'][
+                                                     'message_template'].format(**appointment))
+            )
+        if "gi" in providers:
+            import gi
+            gi.require_version('Notify', '0.7')
+            from gi.repository import Notify
+            # One time initialization of libnotify
+            Notify.init("Luxmed Sniper")
+            self.notification_providers.append(
+                lambda appointment: Notify.Notification.new(
+                    self.config['gi']['message_template'].format(**appointment), None).show()
+            )
 
 def work(config):
     try:
