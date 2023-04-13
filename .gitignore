@@ -106,3 +106,8 @@ venv.bak/
 # local
 local-*.yaml
 .idea
+
+# shelve files
+*.bak
+*.dat
+*.dir
