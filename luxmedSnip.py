@@ -21,6 +21,22 @@ APP_VERSION = "4.19.0"
 CUSTOM_USER_AGENT = f"Patient Portal; {APP_VERSION}; {str(uuid.uuid4())}; Android; {str(random.randint(23, 29))}; {str(uuid.uuid4())}"
 
 
+class PushoverClient:
+    def __init__(self, user_key, api_token):
+        self.api_token = api_token
+        self.user_key = user_key
+
+    def send_message(self, message):
+        data = {
+            'token': self.api_token,
+            'user': self.user_key,
+            'message': message
+        }
+        r = requests.post('https://api.pushover.net/1/messages.json', data=data)
+        if r.status_code != 200:
+            raise Exception('Pushover error: %s' % r.text)
+
+
 class LuxMedSniper:
     LUXMED_TOKEN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
     LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogInToApp'
@@ -149,8 +165,7 @@ class LuxMedSniper:
                 self._addToDatabase(appointment)
                 self._send_notification(appointment)
                 self.log.info(
-                    "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
-                        **appointment))
+                    "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(**appointment))
             else:
                 self.log.info('Notification was already sent.')
 
@@ -179,14 +194,12 @@ class LuxMedSniper:
         providers = self.config['luxmedsniper']['notification_provider']
 
         if "pushover" in providers:
-            import pushover
-            pushover.init(self.config['pushover']['api_token'])
-            pushoverClient = pushover.Client(self.config['pushover']['user_key'])
+            pushover_client = PushoverClient(self.config['pushover']['user_key'], self.config['pushover']['api_token'])
+            # pushover_client.send_message("Luxmed Sniper is running!")
             self.notification_providers.append(
-                lambda appointment: pushoverClient.send_message(
-                    self.config['pushover']['message_template'].format(**appointment, title=
-                    self.config['pushover']['title']))
-            )
+                lambda appointment: pushover_client.send_message(
+                    self.config['pushover']['message_template'].format(
+                        **appointment, title=self.config['pushover']['title'])))
         if "slack" in providers:
             from slack_sdk import WebClient
             client = WebClient(token=self.config['slack']['api_token'])
@@ -205,23 +218,15 @@ class LuxMedSniper:
                                                  body=self.config['pushbullet'][
                                                      'message_template'].format(**appointment))
             )
-        if "gi" in providers:
-            import gi
-            gi.require_version('Notify', '0.7')
-            from gi.repository import Notify
-            # One time initialization of libnotify
-            Notify.init("Luxmed Sniper")
-            self.notification_providers.append(
-                lambda appointment: Notify.Notification.new(
-                    self.config['gi']['message_template'].format(**appointment), None).show()
-            )
+
 
 def work(config):
     try:
-        luxmedSniper = LuxMedSniper(configuration_file=config)
-        luxmedSniper.check()
+        luxmed_sniper = LuxMedSniper(configuration_file=config)
+        luxmed_sniper.check()
     except Exception as s:
         log.error(s)
+
 
 class LuxmedSniperException(Exception):
     pass
