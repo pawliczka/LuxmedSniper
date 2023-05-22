@@ -21,22 +21,6 @@ APP_VERSION = "4.19.0"
 CUSTOM_USER_AGENT = f"Patient Portal; {APP_VERSION}; {str(uuid.uuid4())}; Android; {str(random.randint(23, 29))}; {str(uuid.uuid4())}"
 
 
-class PushoverClient:
-    def __init__(self, user_key, api_token):
-        self.api_token = api_token
-        self.user_key = user_key
-
-    def send_message(self, message):
-        data = {
-            'token': self.api_token,
-            'user': self.user_key,
-            'message': message
-        }
-        r = requests.post('https://api.pushover.net/1/messages.json', data=data)
-        if r.status_code != 200:
-            raise Exception('Pushover error: %s' % r.text)
-
-
 class LuxMedSniper:
     LUXMED_TOKEN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
     LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogInToApp'
@@ -218,6 +202,16 @@ class LuxMedSniper:
                                                  body=self.config['pushbullet'][
                                                      'message_template'].format(**appointment))
             )
+        if "gi" in providers:
+            import gi
+            gi.require_version('Notify', '0.7')
+            from gi.repository import Notify
+            # One time initialization of libnotify
+            Notify.init("Luxmed Sniper")
+            self.notification_providers.append(
+                lambda appointment: Notify.Notification.new(
+                    self.config['gi']['message_template'].format(**appointment), None).show()
+            )
 
 
 def work(config):
@@ -230,6 +224,22 @@ def work(config):
 
 class LuxmedSniperException(Exception):
     pass
+
+
+class PushoverClient:
+    def __init__(self, user_key, api_token):
+        self.api_token = api_token
+        self.user_key = user_key
+
+    def send_message(self, message):
+        data = {
+            'token': self.api_token,
+            'user': self.user_key,
+            'message': message
+        }
+        r = requests.post('https://api.pushover.net/1/messages.json', data=data)
+        if r.status_code != 200:
+            raise Exception('Pushover error: %s' % r.text)
 
 
 if __name__ == "__main__":
