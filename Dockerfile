@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.11
 WORKDIR /usr/src/app
 COPY . .
 RUN pip install -r /usr/src/app/requirements.txt
