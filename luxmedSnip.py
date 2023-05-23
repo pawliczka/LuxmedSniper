@@ -96,10 +96,18 @@ class LuxMedSniper:
 
     def _parseVisitsNewPortal(self, data) -> List[dict]:
         appointments = []
+        (clinicIds, doctorIds) = self.config['luxmedsniper'][
+            'doctor_locator_id'].strip().split('*')[-2:]
         content = data.json()
         for termForDay in content["termsForService"]["termsForDays"]:
             for term in termForDay["terms"]:
                 doctor = term['doctor']
+
+                if doctorIds != '-1' and str(doctor['id']) != doctorIds:
+                    continue
+                if clinicIds != '-1' and str(term['clinicId']) != clinicIds:
+                    continue
+
                 appointments.append(
                     {
                         'AppointmentDate': term['dateTimeFrom'],
