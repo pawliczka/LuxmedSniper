@@ -220,7 +220,11 @@ class LuxMedSniper:
                 lambda appointment: Notify.Notification.new(
                     self.config['gi']['message_template'].format(**appointment), None).show()
             )
-
+        if "telegram" in providers:
+            from telegram_send import send as t_send
+            self.notification_providers.append(
+                lambda appointment: t_send(messages=[self.config['telegram']['message_template'].format(**appointment)], conf=self.config['telegram']['tele_conf_path'])
+            )
 
 def work(config):
     try:
