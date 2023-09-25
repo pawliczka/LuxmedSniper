@@ -133,6 +133,7 @@ class LuxMedSniper:
             "languageId": 10,
             "searchDateFrom": datetime.date.today().strftime("%Y-%m-%d"),
             "searchDateTo": date_to.strftime("%Y-%m-%d"),
+            "delocalized": False
         }
         if clinicIds != '-1':
             params['facilitiesIds'] = clinicIds.split(',')
