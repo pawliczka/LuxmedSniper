@@ -5,7 +5,7 @@ Simple tool to notify about available slot in LUX MED medical care service using
 
 How to use LuxmedSniper?
 --------------------
-First of all create virtualenv and install python requirements from requirements.txt
+First of all create virtualenv and install Python requirements from requirements.txt
 
 1) For each specialist create configuration file (yaml format) and save it for example as my_favourite_surgeon.yml:
 ```

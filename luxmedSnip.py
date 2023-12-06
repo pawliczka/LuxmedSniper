@@ -17,7 +17,7 @@ import schedule
 coloredlogs.install(level="INFO")
 log = logging.getLogger("main")
 
-APP_VERSION = "4.19.0"
+APP_VERSION = "4.29.0"
 CUSTOM_USER_AGENT = f"Patient Portal; {APP_VERSION}; {str(uuid.uuid4())}; Android; {str(random.randint(23, 29))}; {str(uuid.uuid4())}"
 
 
@@ -128,7 +128,8 @@ class LuxMedSniper:
         date_to = (datetime.date.today() + datetime.timedelta(
             days=self.config['luxmedsniper']['lookup_time_days']))
         params = {
-            "cityId": cityId,
+            "searchPlace.id": cityId,
+            "searchPlace.type": 0,
             "serviceVariantId": serviceId,
             "languageId": 10,
             "searchDateFrom": datetime.date.today().strftime("%Y-%m-%d"),
