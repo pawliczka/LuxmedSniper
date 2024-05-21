@@ -1,7 +1,7 @@
 coloredlogs==15.0.1
 pushbullet.py==0.12.0
 PyYAML==6.0
-requests==2.31.0
+requests==2.32.0
 schedule==1.2.0
 slack-sdk==3.21.0
 telegram_send==0.34
