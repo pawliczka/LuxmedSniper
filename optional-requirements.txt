@@ -1,1 +1,5 @@
 PyGObject==3.44.1
+slack-sdk==3.21.0
+telegram_send==0.34
+pushbullet.py==0.12.0
+python-telegram-bot==13.14
