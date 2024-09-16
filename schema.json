@@ -1,0 +1,121 @@
+{
+  "$id": "https://example.com/fstab",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "$defs": {
+    "providers": {
+      "$anchor": "NotificationProvider",
+      "type": "string",
+      "anyOf": [
+        {
+          "const": "pushover"
+        },
+        {
+          "const": "slack"
+        },
+        {
+          "const": "pushbullet"
+        },
+        {
+          "const": "gi"
+        },
+        {
+          "const": "telegram"
+        },
+        {
+          "const": "ntfy"
+        }
+      ]
+    }
+  },
+  "properties": {
+    "luxmedsniper": {
+      "properties": {
+        "doctor_locator_id": {
+          "type": "string"
+        },
+        "lookup_time_days": {
+          "type": "number"
+        },
+        "notification_provider": {
+          "type": "array",
+          "items": {
+            "$ref": "#NotificationProvider"
+          },
+          "uniqueItems": true
+        },
+        "facilities_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "doctor_locator_id",
+        "lookup_time_days",
+        "notification_provider"
+      ],
+      "additionalProperties": false
+    },
+    "misc": {
+      "type": "object",
+      "properties": {
+        "notifydb": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "notifydb"
+      ]
+    },
+    "luxmed": {
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "pushover": {
+      "properties": {
+        "user_key": {},
+        "api_token": {},
+        "message_template": {},
+        "title": {}
+      }
+    },
+    "slack": {
+      "properties": {
+        "channel": {},
+        "api_token": {},
+        "message_template": {}
+      }
+    },
+    "pushbullet": {
+    },
+    "gi": {
+    },
+    "telegram": {
+    },
+    "ntfy": {
+      "properties": {
+        "topic": {},
+        "message_template": {}
+      }
+    }
+  },
+  "required": [
+    "luxmedsniper",
+    "misc",
+    "luxmed"
+  ],
+  "additionalProperties": false
+}

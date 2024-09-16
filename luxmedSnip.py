@@ -1,116 +1,110 @@
 import argparse
 import datetime
+import inspect
+import json
 import logging
-import os
-import random
+import pathlib
 import shelve
+import sys
 import time
-import uuid
 import yaml
 
-from typing import List
+from typing import Any
+from loguru import logger
 
-import coloredlogs
+import jsonschema
 import requests
 import schedule
 
-coloredlogs.install(level="INFO")
-log = logging.getLogger("main")
-
-APP_VERSION = "4.29.0"
-CUSTOM_USER_AGENT = f"Patient Portal; {APP_VERSION}; {str(uuid.uuid4())}; Android; {str(random.randint(23, 29))}; {str(uuid.uuid4())}"
-
 
 class LuxMedSniper:
-    LUXMED_TOKEN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortalMobileAPI/api/token'
-    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogInToApp'
+    LUXMED_LOGIN_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/Account/LogIn'
     NEW_PORTAL_RESERVATION_URL = 'https://portalpacjenta.luxmed.pl/PatientPortal/NewPortal/terms/index'
 
-    def __init__(self, configuration_file="luxmedSniper.yaml"):
-        self.log = logging.getLogger("LuxMedSniper")
-        self.log.info("LuxMedSniper logger initialized")
-        self._loadConfiguration(configuration_file)
+    def __init__(self, configuration_files):
+        logger.info("LuxMedSniper logger initialized")
+        self._loadConfiguration(configuration_files)
         self._setup_providers()
         self._createSession()
-        self._get_access_token()
         self._logIn()
-
-    def _get_access_token(self) -> str:
-
-        authentication_body = {
-            'username': self.config['luxmed']['email'],
-            'password': self.config['luxmed']['password'],
-            "grant_type": "password",
-            "account_id": str(uuid.uuid4())[:35],
-            "client_id": str(uuid.uuid4())
-        }
-
-        response = self.session.post(LuxMedSniper.LUXMED_TOKEN_URL,
-                                     data=authentication_body)
-        content = response.json()
-        self.access_token = content['access_token']
-        self.refresh_token = content['refresh_token']
-        self.token_type = content['token_type']
-        self.session.headers.update({'Authorization': self.access_token})
-        self.log.info('Successfully received an access token!')
-
-        return response.json()["access_token"]
 
     def _createSession(self):
         self.session = requests.Session()
-        self.session.headers.update({'Host': 'portalpacjenta.luxmed.pl'})
-        self.session.headers.update({'Origin': "https://portalpacjenta.luxmed.pl"})
-        self.session.headers.update({'Content-Type': "application/x-www-form-urlencoded"})
-        self.session.headers.update({'x-api-client-identifier': 'iPhone'})
-        self.session.headers.update({'Accept': 'application/json, text/plain, */*'})
-        self.session.headers.update({'Custom-User-Agent': CUSTOM_USER_AGENT})
-        self.session.headers.update({'User-Agent': 'okhttp/3.11.0'})
-        self.session.headers.update({'Accept-Language': 'en;q=1.0, en-PL;q=0.9, pl-PL;q=0.8, ru-PL;q=0.7, uk-PL;q=0.6'})
-        self.session.headers.update({'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5'})
 
-    def _loadConfiguration(self, configuration_file):
-        try:
-            config_data = open(os.path.expanduser(configuration_file), 'r').read()
-        except IOError:
-            raise Exception(
-                'Cannot open configuration file ({file})!'.format(file=configuration_file))
-        try:
-            self.config = yaml.load(config_data, Loader=yaml.FullLoader)
-        except Exception as yaml_error:
-            raise Exception('Configuration problem: {error}'.format(error=yaml_error))
+    def validate(self) -> None:
+        schema_file = pathlib.Path("schema.json")
+        with schema_file.open(encoding="utf-8") as f:
+            schema = json.load(f)
+        jsonschema.validate(instance=self.config, schema=schema)
+
+    def _loadConfiguration(self, configuration_files):
+        def merge(a: dict[str, Any], b: dict[str, Any], error_path: str = "") -> dict[str, Any]:
+            for key in b:
+                if key in a:
+                    if isinstance(a[key], dict) and isinstance(b[key], dict):
+                        merge(a[key], b[key], f"{error_path}.{key}")
+                    elif a[key] == b[key]:
+                        pass
+                    else:
+                        raise LuxmedSniperError(f"Conflict at {error_path}.{key}")
+                else:
+                    a[key] = b[key]
+            return a
+
+        self.config: dict[str, Any] = {}
+        for configuration_file in configuration_files:
+            configuration_path = pathlib.Path(configuration_file).expanduser()
+            with configuration_path.open(encoding="utf-8") as stream:
+                cf = yaml.load(stream, Loader=yaml.FullLoader)
+                self.config = merge(self.config, cf)
+
+        self.validate()
 
     def _logIn(self):
-
-        params = {
-            "app": "search",
-            "client": 3,
-            "paymentSupported": "true",
-            "lang": "pl"
+        json_data = {
+            "login": self.config["luxmed"]["email"],
+            "password": self.config["luxmed"]["password"],
         }
-        response = self.session.get(LuxMedSniper.LUXMED_LOGIN_URL, params=params)
 
-        if response.status_code != 200:
-            raise LuxmedSniperException("Unexpected response code, cannot log in")
+        response = self.session.post(
+            url=LuxMedSniper.LUXMED_LOGIN_URL,
+            json=json_data,
+            headers={"Content-Type": "application/json"},
+        )
 
-        self.log.info('Successfully logged in!')
+        logger.debug("Login response: {}.\nLogin cookies: {}", response.text, response.cookies)
 
-    def _parseVisitsNewPortal(self, data) -> List[dict]:
+        if response.status_code != requests.codes["ok"]:
+            raise LuxmedSniperError(f"Unexpected response {response.status_code}, cannot log in")
+
+        logger.info("Successfully logged in!")
+
+        self.session.cookies = response.cookies
+
+        for k, v in self.session.cookies.items():
+            self.session.headers.update({k: v})
+
+        token = json.loads(response.text)["token"]
+
+        self.session.headers["authorization-token"] = f"Bearer {token}"
+
+    def _parseVisitsNewPortal(self, data, clinic_ids: list[int], doctor_ids: list[int]) -> list[dict]:
         appointments = []
-        (clinicIds, doctorIds) = self.config['luxmedsniper'][
-            'doctor_locator_id'].strip().split('*')[-2:]
         content = data.json()
         for termForDay in content["termsForService"]["termsForDays"]:
             for term in termForDay["terms"]:
                 doctor = term['doctor']
+                clinic_id = int(term["clinicGroupId"])
+                doctor_id = int(doctor["id"])
 
-                if doctorIds != '-1' and str(doctor['id']) != doctorIds:
+                if doctor_ids and doctor_id not in doctor_ids:
                     continue
-                if clinicIds != '-1' and str(term['clinicId']) != clinicIds:
+                if clinic_ids and clinic_id not in clinic_ids:
                     continue
 
                 appointments.append(
                     {
-                        'AppointmentDate': term['dateTimeFrom'],
+                        'AppointmentDate': datetime.datetime.fromisoformat(term['dateTimeFrom']),
                         'ClinicId': term['clinicId'],
                         'ClinicPublicName': term['clinic'],
                         'DoctorName': f'{doctor["academicTitle"]} {doctor["firstName"]} {doctor["lastName"]}',
@@ -123,10 +117,17 @@ class LuxMedSniper:
         try:
             (cityId, serviceId, clinicIds, doctorIds) = self.config['luxmedsniper'][
                 'doctor_locator_id'].strip().split('*')
-        except ValueError:
-            raise Exception('DoctorLocatorID seems to be in invalid format')
-        date_to = (datetime.date.today() + datetime.timedelta(
-            days=self.config['luxmedsniper']['lookup_time_days']))
+
+            clinicIds = [*filter(lambda x: x != -1, map(int, clinicIds.split(",")))]
+            clinic_ids = clinicIds + self.config["luxmedsniper"].get("facilities_ids", [])
+
+            doctor_ids = [*filter(lambda x: x != -1, map(int, doctorIds.split(",")))]
+        except ValueError as err:
+            raise LuxmedSniperError("DoctorLocatorID seems to be in invalid format") from err
+
+        lookup_days = self.config["luxmedsniper"]["lookup_time_days"]
+        date_to = datetime.date.today() + datetime.timedelta(days=lookup_days)
+
         params = {
             "searchPlace.id": cityId,
             "searchPlace.type": 0,
@@ -134,34 +135,42 @@ class LuxMedSniper:
             "languageId": 10,
             "searchDateFrom": datetime.date.today().strftime("%Y-%m-%d"),
             "searchDateTo": date_to.strftime("%Y-%m-%d"),
-            "delocalized": False
+            "searchDatePreset": lookup_days,
+            "delocalized": "false",
         }
-        if clinicIds != '-1':
-            params['facilitiesIds'] = clinicIds.split(',')
-        if doctorIds != '-1':
-            params['doctorsIds'] = doctorIds.split(',')
 
-        response = self.session.get(LuxMedSniper.NEW_PORTAL_RESERVATION_URL, params=params)
-        return [*filter(
-            lambda a: datetime.datetime.fromisoformat(a['AppointmentDate']).date() <= date_to,
-            self._parseVisitsNewPortal(response))]
+        if clinic_ids:
+            params["facilitiesIds"] = clinic_ids
+        if doctor_ids:
+            params["doctorsIds"] = doctor_ids
+
+        response = self.session.get(url=LuxMedSniper.NEW_PORTAL_RESERVATION_URL, params=params)
+
+        logger.debug(response.text)
+
+        return [
+            *filter(
+                lambda appointment: appointment["AppointmentDate"].date() <= date_to,
+                self._parseVisitsNewPortal(response, clinic_ids, doctor_ids),
+            )
+        ]
 
     def check(self):
         appointments = self._getAppointmentsNewPortal()
         if not appointments:
-            self.log.info("No appointments found.")
+            logger.info("No appointments found.")
             return
         for appointment in appointments:
-            self.log.info(
+            logger.info(
                 "Appointment found! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
                     **appointment))
             if not self._isAlreadyKnown(appointment):
                 self._addToDatabase(appointment)
                 self._send_notification(appointment)
-                self.log.info(
+                logger.info(
                     "Notification sent! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(**appointment))
             else:
-                self.log.info('Notification was already sent.')
+                logger.info('Notification was already sent.')
 
     def _addToDatabase(self, appointment):
         db = shelve.open(self.config['misc']['notifydb'])
@@ -182,7 +191,7 @@ class LuxMedSniper:
             return True
         return False
 
-    def _setup_providers(self):
+    def _setup_providers(self) -> None:
         self.notification_providers = []
 
         providers = self.config['luxmedsniper']['notification_provider']
@@ -212,6 +221,17 @@ class LuxMedSniper:
                                                  body=self.config['pushbullet'][
                                                      'message_template'].format(**appointment))
             )
+        if "ntfy" in providers:
+
+            def ntfy_callback(appointment):
+                requests.post(
+                    f"https://ntfy.sh/{self.config['ntfy']['topic']}",
+                    data=self.config["ntfy"]["message_template"].format(**appointment),
+                    headers={"Tags": "hospital,pill,syringe", "Title": "Nowa wizyta"},
+                    timeout=10,
+                )
+
+            self.notification_providers.append(ntfy_callback)
         if "gi" in providers:
             import gi
             gi.require_version('Notify', '0.7')
@@ -230,13 +250,13 @@ class LuxMedSniper:
 
 def work(config):
     try:
-        luxmed_sniper = LuxMedSniper(configuration_file=config)
+        luxmed_sniper = LuxMedSniper(config)
         luxmed_sniper.check()
-    except Exception as s:
-        log.error(s)
+    except LuxmedSniperError as s:
+        logger.error(s)
 
 
-class LuxmedSniperException(Exception):
+class LuxmedSniperError(Exception):
     pass
 
 
@@ -256,12 +276,52 @@ class PushoverClient:
             raise Exception('Pushover error: %s' % r.text)
 
 
+def setup_logging():
+    class InterceptHandler(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            # Get corresponding Loguru level if it exists.
+            level: str | int
+            try:
+                level = logger.level(record.levelname).name
+            except ValueError:
+                level = record.levelno
+
+            # Find caller from where originated the logged message.
+            frame, depth = inspect.currentframe(), 0
+            while frame and (depth == 0 or frame.f_code.co_filename == logging.__file__):
+                frame = frame.f_back
+                depth += 1
+
+            logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+
+    logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
+    requests_log = logging.getLogger("urllib3")
+    requests_log.setLevel(logging.DEBUG)
+    requests_log.propagate = True
+
+    loguru_config = {
+        "handlers": [
+            {"sink": sys.stdout, "level": "INFO"},
+            {
+                "sink": "debug.log",
+                "format": "{time} - {message}",
+                "serialize": True,
+                "rotation": "1 week",
+            },
+        ]
+    }
+    logger.configure(handlers=loguru_config["handlers"])
+
+
 if __name__ == "__main__":
-    log.info("LuxMedSniper - Lux Med Appointment Sniper")
+    setup_logging()
+
+    logger.info("LuxMedSniper - Lux Med Appointment Sniper")
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         "-c", "--config",
-        help="Configuration file path", default="luxmedSniper.yaml"
+        help="Configuration file path", default=["luxmedSniper.yaml"],
+        nargs="*"
     )
     parser.add_argument(
         "-d", "--delay",

@@ -6,6 +6,7 @@ luxmedsniper: #                     mandatory  mandatory
                                   # You can get those ids by reading form data sent to https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/PartialSearch
                                   # on https://portalpacjenta.luxmed.pl/PatientPortal/Reservations/Reservation/Search by Chrome dev tools
   lookup_time_days: 14 # How many days from now should script look at.
+  facilities_ids: []
   notification_provider: # slack, pushover, pushbullet, gi, telegram
     - slack
 pushover:
