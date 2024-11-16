@@ -9,7 +9,8 @@ import pathlib
 import shelve
 import sys
 import time
-from typing import Any
+from fnmatch import fnmatch
+from typing import Any, Callable, Coroutine
 
 import requests
 import schedule
@@ -26,14 +27,18 @@ class LuxMedSniper:
     DICTIONARY_SERVICES_URL = f'{DICTIONARY_URL}/serviceVariantsGroups'
     DICTIONARY_FACILITIES_AND_DOCTORS = f'{DICTIONARY_URL}/facilitiesAndDoctors'
 
-    def __init__(self, configuration_files):
+    def __init__(self, configuration_files: list[str]) -> None:
         logger.info("LuxMedSniper logger initialized")
+        self.config: dict[str, Any]
+        self.session: requests.Session
+        self.notification_providers: list[Callable[[dict, dict], None] | Coroutine]
+
         self._load_configuration(configuration_files)
         self._setup_providers()
         self._create_session()
         self._log_in()
 
-    def _load_configuration(self, configuration_files):
+    def _load_configuration(self, configuration_files: list[str]) -> None:
         def merge(a: dict[str, Any], b: dict[str, Any], error_path: str = "") -> dict[str, Any]:
             for key in b:
                 if key in a:
@@ -128,10 +133,10 @@ class LuxMedSniper:
 
             self.notification_providers.append(async_console_notification)
 
-    def _create_session(self):
+    def _create_session(self) -> None:
         self.session = requests.Session()
 
-    def _log_in(self):
+    def _log_in(self) -> None:
         json_data = {
             "login": self.config["luxmed"]["email"],
             "password": self.config["luxmed"]["password"],
@@ -219,20 +224,20 @@ class LuxMedSniper:
     def _get_notifydb_path(self) -> str:
         return self.config['misc']['notifydb_template'].format(email=self.config['luxmed']['email'])
 
-    def _add_to_database(self, appointment):
+    def _add_to_database(self, appointment: dict[str, Any]) -> None:
         with shelve.open(self._get_notifydb_path()) as db:
             notifications = db.get(appointment['DoctorName'], [])
             notifications.append(appointment['AppointmentDate'])
             db[appointment['DoctorName']] = notifications
 
-    def _is_already_known(self, appointment):
+    def _is_already_known(self, appointment: dict[str, Any]) -> bool:
         with shelve.open(self._get_notifydb_path()) as db:
             notifications = db.get(appointment['DoctorName'], [])
         if appointment['AppointmentDate'] in notifications:
             return True
         return False
 
-    def _send_notification(self, doctor_locator, appointment):
+    def _send_notification(self, doctor_locator: dict[str, Any], appointment: dict[str, Any]) -> None:
         for provider in self.notification_providers:
             try:
                 result = provider(doctor_locator, appointment)
@@ -241,7 +246,7 @@ class LuxMedSniper:
             except Exception as e:
                 logger.warning(f'Sending notification failed, reason: {e}')
 
-    def check(self):
+    def check(self) -> None:
         doctor_locator: dict[str, Any]
         for doctor_locator in self.config['luxmedsniper']['doctor_locators']:
             if doctor_locator.get('enabled', True) is False:
@@ -281,7 +286,7 @@ class LuxMedSniper:
         )
         return response.json()
 
-    def get_facilities_and_doctors(self, city_id: int, service_variant_id: int) -> dict:
+    def get_facilities_and_doctors(self, city_id: int, service_variant_id: int) -> dict[str, Any]:
         params = {
             'cityId': city_id,
             'serviceVariantId': service_variant_id
@@ -314,7 +319,7 @@ class PushoverClient:
             raise Exception('Pushover error: %s' % r.text)
 
 
-def setup_logging():
+def setup_logging() -> None:
     class InterceptHandler(logging.Handler):
         def emit(self, record: logging.LogRecord) -> None:
             # Get corresponding Loguru level if it exists.
@@ -352,14 +357,49 @@ def setup_logging():
 
 
 # noinspection PyTypeChecker
-def dump_current_ids(config):
+def dump_current_ids(config, city_wildcard: str | None, dump_ids_doctors: bool) -> None:
     luxmed_sniper = LuxMedSniper(config)
-    json.dump(luxmed_sniper.get_cities(), open('db-cities.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
-    json.dump(luxmed_sniper.get_services(), open('db-services.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
-    # print(luxmed_sniper.get_facilities_and_doctors(1, 7409))
+    cities: list[dict[str, Any]] = luxmed_sniper.get_cities()
+    logger.info(f'Found: {len(cities)} cities')
+    services: list[dict[str, Any]] = []
+    for s in luxmed_sniper.get_services():
+        services.append(
+            dict(id=s['id'],name=s['name'], telemedicine=s['isTelemedicine'])
+        )
+        for c in s['children']:
+            services.append(
+                dict(id=c['id'], name=c['name'], telemedicine=c['isTelemedicine'])
+            )
+            for c2 in c['children']:
+                services.append(
+                    dict(id=c2['id'], name=c2['name'], telemedicine=c2['isTelemedicine'])
+                )
+    logger.info(f'Found: {len(services)} services')
+    facilities_and_doctors = {}  # per city, per service
+    for city in cities:
+        if city_wildcard is not None:
+            if not fnmatch(city['name'], city_wildcard):
+                logger.info(f'{city["name"]} - skipping facilities and doctors')
+                continue
+        if dump_ids_doctors is False:
+            continue
+        logger.info(f'{city["name"]} - looking for facilities and doctors')
+        facilities_and_doctors[city['id']] = {}
+        for service in services:
+            facilities_and_doctors[city['id']][service['id']] = {}
+            fac_and_doc: dict[str, Any] = luxmed_sniper.get_facilities_and_doctors(city['id'], service['id'])
+            facilities_and_doctors[city['id']][service['id']]['facilities'] = copy.deepcopy(fac_and_doc['facilities'])
+            facilities_and_doctors[city['id']][service['id']]['doctors'] = [
+                dict(id=d['id'], name=f'{d["academicTitle"]} {d["lastName"]} {d["firstName"]}')
+                for d in fac_and_doc['doctors']
+            ]
+
+    json.dump(cities, open('luxmed-ids/ids-cities.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
+    json.dump(services, open('luxmed-ids/ids-services.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
+    json.dump(facilities_and_doctors, open('luxmed-ids/ids-facilities-doctors.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
 
 
-def work(config):
+def work(config: list[str]) -> None:
     try:
         luxmed_sniper = LuxMedSniper(config)
         luxmed_sniper.check()
@@ -380,15 +420,26 @@ if __name__ == "__main__":
         "-d", "--delay",
         type=int, help="Delay in fetching updates [s]", default=1800
     )
-    parser.add_argument(
+    group = parser.add_argument_group('dump-ids')
+    group.add_argument(
         "--dump-ids",
         action='store_true', dest='dump_ids', help="Dump current ids", default=False
+    )
+    group.add_argument(
+        "--dump-ids-city",
+        type=str, dest='dump_ids_city', help="Dump facilities and doctors only from this city (wildcard)", default=None
+    )
+    group.add_argument(
+        "--dump-ids-doctors",
+        action='store_true', dest='dump_ids_doctors', help="Dump facilities and doctors also (many requests)", default=False
     )
     args = parser.parse_args()
 
     if args.dump_ids is True:
-        dump_current_ids(args.config)
+        logger.info(f'Dumping IDs')
+        dump_current_ids(args.config, args.dump_ids_city, args.dump_ids_doctors)
     else:
+        logger.info(f'Start working every: {args.delay} s')
         work(args.config)
         schedule.every(args.delay).seconds.do(work, args.config)
         try:

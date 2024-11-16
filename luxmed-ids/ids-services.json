@@ -1,0 +1,2527 @@
+[
+    {
+        "id": 15,
+        "name": "Konsultacje",
+        "telemedicine": false
+    },
+    {
+        "id": 5788,
+        "name": "Alergolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13946,
+        "name": "Alergolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8423,
+        "name": "Angiolog",
+        "telemedicine": false
+    },
+    {
+        "id": 4394,
+        "name": "Chirurg",
+        "telemedicine": false
+    },
+    {
+        "id": 4406,
+        "name": "Chirurg naczyniowy",
+        "telemedicine": false
+    },
+    {
+        "id": 13947,
+        "name": "Chirurg ogólny - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 11414,
+        "name": "Chirurg onkolog",
+        "telemedicine": false
+    },
+    {
+        "id": 5817,
+        "name": "Dermatolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13948,
+        "name": "Dermatolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8277,
+        "name": "Diabetolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13949,
+        "name": "Dietetyk - konsultacja telefoniczna (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 8273,
+        "name": "Dietetyk (kolejna wizyta)",
+        "telemedicine": false
+    },
+    {
+        "id": 13668,
+        "name": "Dietetyk (wizyta pierwszorazowa)",
+        "telemedicine": false
+    },
+    {
+        "id": 13950,
+        "name": "Dietetyka - konsultacja telefoniczna (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 7669,
+        "name": "Endokrynolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13951,
+        "name": "Endokrynolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 13789,
+        "name": "Fizjoterapeuta - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8294,
+        "name": "Fizjoterapeuta (konsultacja)",
+        "telemedicine": false
+    },
+    {
+        "id": 15450,
+        "name": "Fizjoterapia stomatologiczna",
+        "telemedicine": false
+    },
+    {
+        "id": 15616,
+        "name": "Fizjoterapia uroginekologiczna",
+        "telemedicine": false
+    },
+    {
+        "id": 6748,
+        "name": "Flebolog",
+        "telemedicine": false
+    },
+    {
+        "id": 7675,
+        "name": "Gastroenterolog (Gastrolog)",
+        "telemedicine": false
+    },
+    {
+        "id": 13952,
+        "name": "Gastroenterolog (Gastrolog) - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 13953,
+        "name": "Ginekolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 7676,
+        "name": "Ginekolog dzieci",
+        "telemedicine": false
+    },
+    {
+        "id": 7223,
+        "name": "Hematolog ",
+        "telemedicine": false
+    },
+    {
+        "id": 14188,
+        "name": "Hematolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 4491,
+        "name": "Hepatolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13773,
+        "name": "Hepatolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8006,
+        "name": "Hipertensjolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13833,
+        "name": "Hipertensjolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 12601,
+        "name": "Immunolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13954,
+        "name": "Immunolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 7318,
+        "name": "Kardiolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13955,
+        "name": "Kardiolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 15296,
+        "name": "Kwalifikacja do zabiegu dermatologicznego",
+        "telemedicine": false
+    },
+    {
+        "id": 12557,
+        "name": "Kwalifikacja do zabiegu dermatologicznego - metodą elektroterapii",
+        "telemedicine": false
+    },
+    {
+        "id": 12558,
+        "name": "Kwalifikacja do zabiegu dermatologicznego - metodą krioterapii",
+        "telemedicine": false
+    },
+    {
+        "id": 14186,
+        "name": "Kwalifikacja do zabiegu dermatologicznego - metodą laseroterapii",
+        "telemedicine": false
+    },
+    {
+        "id": 13681,
+        "name": "Kwalifikacja do zabiegu dermatologicznego - wyłyżeczkowania zmiany skórnej",
+        "telemedicine": false
+    },
+    {
+        "id": 5854,
+        "name": "Laryngolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13956,
+        "name": "Laryngolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 4498,
+        "name": "Lekarz chorób zakaźnych",
+        "telemedicine": false
+    },
+    {
+        "id": 13802,
+        "name": "Logopeda - konsultacja telefoniczna (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 13858,
+        "name": "Logopeda - konsultacja telefoniczna (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 14004,
+        "name": "Logopeda - konsultacja wideo (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 14005,
+        "name": "Logopeda - konsultacja wideo (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 5870,
+        "name": "Logopeda (kolejna wizyta)",
+        "telemedicine": false
+    },
+    {
+        "id": 4532,
+        "name": "Logopeda (wizyta pierwszorazowa)",
+        "telemedicine": false
+    },
+    {
+        "id": 6799,
+        "name": "Medycyna estetyczna",
+        "telemedicine": false
+    },
+    {
+        "id": 11785,
+        "name": "Medycyna podróży",
+        "telemedicine": false
+    },
+    {
+        "id": 11784,
+        "name": "Medycyna podróży - kontynuacja szczepienia",
+        "telemedicine": false
+    },
+    {
+        "id": 8008,
+        "name": "Nefrolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13959,
+        "name": "Nefrolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8274,
+        "name": "Neurochirurg",
+        "telemedicine": false
+    },
+    {
+        "id": 7056,
+        "name": "Neurolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13960,
+        "name": "Neurolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 7681,
+        "name": "Okulista",
+        "telemedicine": false
+    },
+    {
+        "id": 7756,
+        "name": "Okulista - badanie dna oka",
+        "telemedicine": false
+    },
+    {
+        "id": 13963,
+        "name": "Okulista - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8275,
+        "name": "Onkolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13961,
+        "name": "Onkolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 12574,
+        "name": "Optometrysta (dobór szkieł okularowych)",
+        "telemedicine": false
+    },
+    {
+        "id": 7678,
+        "name": "Ortopeda",
+        "telemedicine": false
+    },
+    {
+        "id": 13962,
+        "name": "Ortopeda - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 8341,
+        "name": "Ortopeda - lekarz dyżurny",
+        "telemedicine": false
+    },
+    {
+        "id": 13398,
+        "name": "Ortopeda - uraz",
+        "telemedicine": false
+    },
+    {
+        "id": 7409,
+        "name": "Pediatra - gabinet dzieci chorych",
+        "telemedicine": false
+    },
+    {
+        "id": 13964,
+        "name": "Pediatra - gabinet dzieci chorych - konsultacja telefoniczna ",
+        "telemedicine": true
+    },
+    {
+        "id": 9245,
+        "name": "Pediatra - gabinet dzieci chorych NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 7408,
+        "name": "Pediatra - gabinet dzieci zdrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 10135,
+        "name": "Pediatra - gabinet dzieci zdrowych -  bilans NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 9190,
+        "name": "Pediatra - gabinet dzieci zdrowych - bilans",
+        "telemedicine": false
+    },
+    {
+        "id": 14006,
+        "name": "Pediatra - gabinet dzieci zdrowych - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 14057,
+        "name": "Pediatra - gabinet dzieci zdrowych - kwalifikacja do szczepienia (inne niż p/grypie)",
+        "telemedicine": false
+    },
+    {
+        "id": 14055,
+        "name": "Pediatra - gabinet dzieci zdrowych - kwalifikacja do szczepienia p/grypie",
+        "telemedicine": false
+    },
+    {
+        "id": 9246,
+        "name": "Pediatra - gabinet dzieci zdrowych NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 14058,
+        "name": "Pediatra - gabinet dzieci zdrowych szczepienia ( inne niż p/grypie) NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 14060,
+        "name": "Pediatra - gabinet dzieci zdrowych szczepienia p/grypie (szczepionka własna Pacjenta) NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 13740,
+        "name": "Pediatra - konsultacja telefoniczna NFZ (POZ)",
+        "telemedicine": true
+    },
+    {
+        "id": 13215,
+        "name": "Pielęgniarka - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 14483,
+        "name": "Pielęgniarka dermatologiczna",
+        "telemedicine": false
+    },
+    {
+        "id": 14297,
+        "name": "Porada pielęgniarki - ankieta poinfekcyjna",
+        "telemedicine": false
+    },
+    {
+        "id": 14280,
+        "name": "Psychiatra - konsultacja telefoniczna - porada receptowa",
+        "telemedicine": true
+    },
+    {
+        "id": 14114,
+        "name": "Psychiatra - konsultacja telefoniczna (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 13980,
+        "name": "Psychiatra - konsultacja wideo (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 13979,
+        "name": "Psychiatra - konsultacja wideo (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 6749,
+        "name": "Psychiatra (kolejna wizyta)",
+        "telemedicine": false
+    },
+    {
+        "id": 9157,
+        "name": "Psychiatra (wizyta pierwszorazowa)",
+        "telemedicine": false
+    },
+    {
+        "id": 13966,
+        "name": "Psycholog - konsultacja telefoniczna (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 13967,
+        "name": "Psycholog - konsultacja telefoniczna (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 13988,
+        "name": "Psycholog - konsultacja wideo (kolejna wizyta)",
+        "telemedicine": true
+    },
+    {
+        "id": 13987,
+        "name": "Psycholog - konsultacja wideo (wizyta pierwszorazowa)",
+        "telemedicine": true
+    },
+    {
+        "id": 7685,
+        "name": "Psycholog (kolejna wizyta)",
+        "telemedicine": false
+    },
+    {
+        "id": 9159,
+        "name": "Psycholog (wizyta pierwszorazowa)",
+        "telemedicine": false
+    },
+    {
+        "id": 7687,
+        "name": "Pulmonolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13968,
+        "name": "Pulmonolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 7688,
+        "name": "Reumatolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13969,
+        "name": "Reumatolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 13800,
+        "name": "Stomatolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 4,
+        "name": "Stomatologia",
+        "telemedicine": false
+    },
+    {
+        "id": 8904,
+        "name": "Chirurg stomatolog",
+        "telemedicine": false
+    },
+    {
+        "id": 6817,
+        "name": "Higienistka stomatologiczna",
+        "telemedicine": false
+    },
+    {
+        "id": 8914,
+        "name": "Stomatolog",
+        "telemedicine": false
+    },
+    {
+        "id": 6611,
+        "name": "Urolog",
+        "telemedicine": false
+    },
+    {
+        "id": 13970,
+        "name": "Urolog - konsultacja telefoniczna",
+        "telemedicine": true
+    },
+    {
+        "id": 16,
+        "name": "Badania",
+        "telemedicine": false
+    },
+    {
+        "id": 10,
+        "name": "Tomografia Komputerowa",
+        "telemedicine": false
+    },
+    {
+        "id": 7716,
+        "name": "Tomografia komputerowa - angio aorty brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 13045,
+        "name": "Tomografia komputerowa - angio aorty brzusznej i tętnic biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 12796,
+        "name": "Tomografia komputerowa - angio aorty brzusznej i tętnic kończyn dolnych",
+        "telemedicine": false
+    },
+    {
+        "id": 7717,
+        "name": "Tomografia komputerowa - angio aorty piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 13049,
+        "name": "Tomografia komputerowa - angio aorty piersiowej i brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 13050,
+        "name": "Tomografia komputerowa - angio aorty piersiowej, brzusznej i tętnic biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 10115,
+        "name": "Tomografia komputerowa - angio tętnic biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 7712,
+        "name": "Tomografia komputerowa - angio tętnic kończyn dolnych",
+        "telemedicine": false
+    },
+    {
+        "id": 9840,
+        "name": "Tomografia komputerowa - angio tętnic kończyny górnej",
+        "telemedicine": false
+    },
+    {
+        "id": 7718,
+        "name": "Tomografia komputerowa - angio tętnic mózgowych",
+        "telemedicine": false
+    },
+    {
+        "id": 13046,
+        "name": "Tomografia komputerowa - angio tętnic nerkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 13222,
+        "name": "Tomografia komputerowa - angio tętnic płucnych",
+        "telemedicine": false
+    },
+    {
+        "id": 7715,
+        "name": "Tomografia komputerowa - angio tętnic szyjnych",
+        "telemedicine": false
+    },
+    {
+        "id": 9433,
+        "name": "Tomografia komputerowa - angio-veno mózgowe",
+        "telemedicine": false
+    },
+    {
+        "id": 9841,
+        "name": "Tomografia komputerowa - artrografia nadgarstka",
+        "telemedicine": false
+    },
+    {
+        "id": 9488,
+        "name": "Tomografia komputerowa - artrografia stawu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 12990,
+        "name": "Tomografia komputerowa - artrografia stawu biodrowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9490,
+        "name": "Tomografia komputerowa - artrografia stawu kolanowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9489,
+        "name": "Tomografia komputerowa - artrografia stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9491,
+        "name": "Tomografia komputerowa - artrografia stawu skokowego",
+        "telemedicine": false
+    },
+    {
+        "id": 12795,
+        "name": "Tomografia komputerowa - badanie dynamiczne stawów rzepkowo-udowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8315,
+        "name": "Tomografia komputerowa - bronchografia",
+        "telemedicine": false
+    },
+    {
+        "id": 13217,
+        "name": "Tomografia komputerowa - bronchoskopia wirtualna",
+        "telemedicine": false
+    },
+    {
+        "id": 12793,
+        "name": "Tomografia komputerowa - enterografia",
+        "telemedicine": false
+    },
+    {
+        "id": 7722,
+        "name": "Tomografia komputerowa - głowy",
+        "telemedicine": false
+    },
+    {
+        "id": 12787,
+        "name": "Tomografia komputerowa - głowy - perfuzja mózgowa",
+        "telemedicine": false
+    },
+    {
+        "id": 10111,
+        "name": "Tomografia komputerowa - głowy, klatki piersiowej, jamy brzusznej, miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 7723,
+        "name": "Tomografia komputerowa - jamy brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 12790,
+        "name": "Tomografia komputerowa - jamy brzusznej - perfuzja nerek",
+        "telemedicine": false
+    },
+    {
+        "id": 12789,
+        "name": "Tomografia komputerowa - jamy brzusznej - perfuzja wątroby",
+        "telemedicine": false
+    },
+    {
+        "id": 8135,
+        "name": "Tomografia komputerowa - jamy brzusznej i miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 7724,
+        "name": "Tomografia komputerowa - jamy brzusznej Trójfazowa",
+        "telemedicine": false
+    },
+    {
+        "id": 7725,
+        "name": "Tomografia komputerowa - klatki piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 12788,
+        "name": "Tomografia komputerowa - klatki piersiowej - perfuzja płuc",
+        "telemedicine": false
+    },
+    {
+        "id": 8137,
+        "name": "Tomografia komputerowa - klatki piersiowej (HRCT)",
+        "telemedicine": false
+    },
+    {
+        "id": 13221,
+        "name": "Tomografia komputerowa - klatki piersiowej (wolumetria)",
+        "telemedicine": false
+    },
+    {
+        "id": 7726,
+        "name": "Tomografia komputerowa - klatki piersiowej i jamy brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 13840,
+        "name": "Tomografia komputerowa - klatki piersiowej niskodawkowa",
+        "telemedicine": false
+    },
+    {
+        "id": 7727,
+        "name": "Tomografia komputerowa - klatki piersiowej, jamy brzusznej, miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 7729,
+        "name": "Tomografia komputerowa - kolonoskopia wirtualna",
+        "telemedicine": false
+    },
+    {
+        "id": 12794,
+        "name": "Tomografia komputerowa - kończyny dolnej z oceną rotacji",
+        "telemedicine": false
+    },
+    {
+        "id": 13051,
+        "name": "Tomografia komputerowa - kości ogonowej",
+        "telemedicine": false
+    },
+    {
+        "id": 7730,
+        "name": "Tomografia komputerowa - kości skroniowych",
+        "telemedicine": false
+    },
+    {
+        "id": 9264,
+        "name": "Tomografia komputerowa - kręgosłupa lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 7740,
+        "name": "Tomografia komputerowa - kręgosłupa piersiowego (Th)",
+        "telemedicine": false
+    },
+    {
+        "id": 8133,
+        "name": "Tomografia komputerowa - kręgosłupa piersiowego (Th) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 7738,
+        "name": "Tomografia komputerowa - kręgosłupa szyjnego (C)",
+        "telemedicine": false
+    },
+    {
+        "id": 8132,
+        "name": "Tomografia komputerowa - kręgosłupa szyjnego (C) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 8131,
+        "name": "Tomografia komputerowa - kręgosłupa szyjnego (C) i piersiowego (Th)",
+        "telemedicine": false
+    },
+    {
+        "id": 8129,
+        "name": "Tomografia komputerowa - kręgosłupa szyjnego (C), piersiowego (Th) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 7731,
+        "name": "Tomografia komputerowa - krtani",
+        "telemedicine": false
+    },
+    {
+        "id": 12792,
+        "name": "Tomografia komputerowa - miednicy kostnej",
+        "telemedicine": false
+    },
+    {
+        "id": 7733,
+        "name": "Tomografia komputerowa - miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 13219,
+        "name": "Tomografia komputerowa - miednicy mniejszej (onkologia)",
+        "telemedicine": false
+    },
+    {
+        "id": 7734,
+        "name": "Tomografia komputerowa - naczyń wieńcowych - tętnice",
+        "telemedicine": false
+    },
+    {
+        "id": 7735,
+        "name": "Tomografia komputerowa - nadgarstka",
+        "telemedicine": false
+    },
+    {
+        "id": 13052,
+        "name": "Tomografia komputerowa - nadnerczy",
+        "telemedicine": false
+    },
+    {
+        "id": 13053,
+        "name": "Tomografia komputerowa - nerek",
+        "telemedicine": false
+    },
+    {
+        "id": 8136,
+        "name": "Tomografia komputerowa - oczodołów",
+        "telemedicine": false
+    },
+    {
+        "id": 7736,
+        "name": "Tomografia komputerowa - podudzia",
+        "telemedicine": false
+    },
+    {
+        "id": 9429,
+        "name": "Tomografia komputerowa - przedramienia",
+        "telemedicine": false
+    },
+    {
+        "id": 8139,
+        "name": "Tomografia komputerowa - przysadki mózgowej",
+        "telemedicine": false
+    },
+    {
+        "id": 9428,
+        "name": "Tomografia komputerowa - ramienia",
+        "telemedicine": false
+    },
+    {
+        "id": 9430,
+        "name": "Tomografia komputerowa - ręki",
+        "telemedicine": false
+    },
+    {
+        "id": 14270,
+        "name": "Tomografia komputerowa - serca",
+        "telemedicine": false
+    },
+    {
+        "id": 12797,
+        "name": "Tomografia komputerowa - serca - calcium scoring",
+        "telemedicine": false
+    },
+    {
+        "id": 7719,
+        "name": "Tomografia komputerowa - stawu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7720,
+        "name": "Tomografia komputerowa - stawu biodrowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7728,
+        "name": "Tomografia komputerowa - stawu kolanowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7732,
+        "name": "Tomografia komputerowa - stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7737,
+        "name": "Tomografia komputerowa - stawu skokowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7741,
+        "name": "Tomografia komputerowa - stopy",
+        "telemedicine": false
+    },
+    {
+        "id": 7743,
+        "name": "Tomografia komputerowa - szyi",
+        "telemedicine": false
+    },
+    {
+        "id": 7721,
+        "name": "Tomografia komputerowa - szyi, klatki piersiowej, jamy brzusznej, miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 13055,
+        "name": "Tomografia komputerowa - trzustki",
+        "telemedicine": false
+    },
+    {
+        "id": 7744,
+        "name": "Tomografia komputerowa - twarzoczaszki",
+        "telemedicine": false
+    },
+    {
+        "id": 9431,
+        "name": "Tomografia komputerowa - uda",
+        "telemedicine": false
+    },
+    {
+        "id": 13048,
+        "name": "Tomografia komputerowa - urografia układu moczowego (URO-TK)",
+        "telemedicine": false
+    },
+    {
+        "id": 13047,
+        "name": "Tomografia komputerowa - wenografia jamy brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 14209,
+        "name": "Tomografia komputerowa - wenografia jamy brzusznej i miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 14210,
+        "name": "Tomografia komputerowa - wenografia jamy brzusznej, miednicy mniejszej i górnej części ud",
+        "telemedicine": false
+    },
+    {
+        "id": 14208,
+        "name": "Tomografia komputerowa - wenografia miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 7745,
+        "name": "Tomografia komputerowa - zatok",
+        "telemedicine": false
+    },
+    {
+        "id": 7,
+        "name": "Ultrasonografia (USG)",
+        "telemedicine": false
+    },
+    {
+        "id": 7955,
+        "name": "Echo serca (USG serca)",
+        "telemedicine": false
+    },
+    {
+        "id": 7296,
+        "name": "USG doppler aorty brzusznej i tętnic biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 6181,
+        "name": "USG doppler naczyń wątroby (ocena krążenia wrotnego)",
+        "telemedicine": false
+    },
+    {
+        "id": 9787,
+        "name": "USG doppler tętnic kończyn dolnych",
+        "telemedicine": false
+    },
+    {
+        "id": 9788,
+        "name": "USG doppler tętnic kończyn górnych",
+        "telemedicine": false
+    },
+    {
+        "id": 6180,
+        "name": "USG doppler tętnic nerkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 6179,
+        "name": "USG doppler tętnic szyjnych i kręgowych",
+        "telemedicine": false
+    },
+    {
+        "id": 7962,
+        "name": "USG doppler tętnic wewnątrzczaszkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 9785,
+        "name": "USG doppler żył kończyn dolnych",
+        "telemedicine": false
+    },
+    {
+        "id": 9786,
+        "name": "USG doppler żył kończyn górnych",
+        "telemedicine": false
+    },
+    {
+        "id": 13081,
+        "name": "USG doppler żył szyjnych",
+        "telemedicine": false
+    },
+    {
+        "id": 4781,
+        "name": "USG gałek ocznych i oczodołów",
+        "telemedicine": false
+    },
+    {
+        "id": 6687,
+        "name": "USG ginekologiczne - przez powłoki brzuszne",
+        "telemedicine": false
+    },
+    {
+        "id": 4376,
+        "name": "USG ginekologiczne - transvaginalne",
+        "telemedicine": false
+    },
+    {
+        "id": 4367,
+        "name": "USG jamy brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 4363,
+        "name": "USG jąder (narządów moszny)",
+        "telemedicine": false
+    },
+    {
+        "id": 7969,
+        "name": "USG krtani",
+        "telemedicine": false
+    },
+    {
+        "id": 11019,
+        "name": "USG krwiaka pourazowego mięśni",
+        "telemedicine": false
+    },
+    {
+        "id": 7965,
+        "name": "USG nadgarstka",
+        "telemedicine": false
+    },
+    {
+        "id": 4361,
+        "name": "USG piersi",
+        "telemedicine": false
+    },
+    {
+        "id": 6184,
+        "name": "USG przezciemiączkowe",
+        "telemedicine": false
+    },
+    {
+        "id": 7966,
+        "name": "USG ręki (stawów śródręcza i palców)",
+        "telemedicine": false
+    },
+    {
+        "id": 13638,
+        "name": "USG stawów biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 4350,
+        "name": "USG stawu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 13639,
+        "name": "USG stawu biodrowego",
+        "telemedicine": false
+    },
+    {
+        "id": 4354,
+        "name": "USG stawu kolanowego",
+        "telemedicine": false
+    },
+    {
+        "id": 4351,
+        "name": "USG stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 4355,
+        "name": "USG stawu skokowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7968,
+        "name": "USG ścięgna Achillesa",
+        "telemedicine": false
+    },
+    {
+        "id": 4364,
+        "name": "USG ślinianek",
+        "telemedicine": false
+    },
+    {
+        "id": 4360,
+        "name": "USG tarczycy",
+        "telemedicine": false
+    },
+    {
+        "id": 4357,
+        "name": "USG tkanki podskórnej (tłuszczaki, włókniaki, przepuklina brzuszna etc.)",
+        "telemedicine": false
+    },
+    {
+        "id": 4368,
+        "name": "USG układu moczowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9369,
+        "name": "USG węzłów chłonnych",
+        "telemedicine": false
+    },
+    {
+        "id": 4356,
+        "name": "USG więzadeł, mięśni, drobnych stawów",
+        "telemedicine": false
+    },
+    {
+        "id": 8,
+        "name": "Rentgen (RTG)",
+        "telemedicine": false
+    },
+    {
+        "id": 8112,
+        "name": "Densytometria - całk. zawartość minerału kostnego w szkielecie (cały szkielet)",
+        "telemedicine": false
+    },
+    {
+        "id": 8111,
+        "name": "Densytometria - cały szkielet + skład ciała",
+        "telemedicine": false
+    },
+    {
+        "id": 7956,
+        "name": "Densytometria - dexa - szyjka kości udowej",
+        "telemedicine": false
+    },
+    {
+        "id": 7957,
+        "name": "Densytometria - dexa - trzony kręgosłupa lędźwiowego",
+        "telemedicine": false
+    },
+    {
+        "id": 8110,
+        "name": "Densytometria - kręg. lędźw. + 2 sz. k. udowej AHA + cały szkielet + skład ciała",
+        "telemedicine": false
+    },
+    {
+        "id": 8109,
+        "name": "Densytometria - kręgosłup lędźwiowy (ocena kości beleczkowej) - screening",
+        "telemedicine": false
+    },
+    {
+        "id": 8114,
+        "name": "Densytometria - kręgosłup lędźwiowy + 2 szyjki k. udowej AHA",
+        "telemedicine": false
+    },
+    {
+        "id": 8113,
+        "name": "Densytometria - kręgosłup lędźwiowy + 2 szyjki kości udowej + cały szkielet",
+        "telemedicine": false
+    },
+    {
+        "id": 8107,
+        "name": "Densytometria - kręgosłup lędźwiowy + 2 szyjki kości udowej AHA + caly szkielet",
+        "telemedicine": false
+    },
+    {
+        "id": 8106,
+        "name": "Densytometria - kręgosłup lędźwiowy + dwie szyjki kości udowej",
+        "telemedicine": false
+    },
+    {
+        "id": 8105,
+        "name": "Densytometria - kręgosłup lędźwiowy + szyjka kości udowej",
+        "telemedicine": false
+    },
+    {
+        "id": 8104,
+        "name": "Densytometria - kręgosłup lędźwiowy + szyjka kości udowej + cały szkielet",
+        "telemedicine": false
+    },
+    {
+        "id": 8103,
+        "name": "Densytometria - kręgosłup lędźwiowy + szyjka kości udowej AHA",
+        "telemedicine": false
+    },
+    {
+        "id": 8102,
+        "name": "Densytometria - kręgosłup lędźwiowy + szyjka kości udowej AHA + cały szkielet",
+        "telemedicine": false
+    },
+    {
+        "id": 8101,
+        "name": "Densytometria - obie szyjki kości udowej",
+        "telemedicine": false
+    },
+    {
+        "id": 8100,
+        "name": "Densytometria - obie szyjki kości udowej - advanced hip assesment (AHA)",
+        "telemedicine": false
+    },
+    {
+        "id": 8099,
+        "name": "Densytometria - przedramię",
+        "telemedicine": false
+    },
+    {
+        "id": 8098,
+        "name": "Densytometria - skład ciała pomiar - zawartość tkanki tłuszczowej, beztłuszczowej",
+        "telemedicine": false
+    },
+    {
+        "id": 8672,
+        "name": "Rtg barku (przez klatkę)",
+        "telemedicine": false
+    },
+    {
+        "id": 6117,
+        "name": "Rtg barku / ramienia - osiowe - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 6118,
+        "name": "Rtg barku / ramienia - osiowe - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 4324,
+        "name": "Rtg barku / ramienia - osiowe - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 8876,
+        "name": "Rtg barku / ramienia AP - + bok lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 8877,
+        "name": "Rtg barku / ramienia AP - + bok obu - zdjęcie porównawcze",
+        "telemedicine": false
+    },
+    {
+        "id": 8875,
+        "name": "Rtg barku / ramienia AP - + bok prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 6114,
+        "name": "Rtg barku / ramienia AP - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 8874,
+        "name": "Rtg barku / ramienia AP - obu - zdjęcie porównawcze",
+        "telemedicine": false
+    },
+    {
+        "id": 4322,
+        "name": "Rtg barku / ramienia AP - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 8673,
+        "name": "Rtg barku AP + osiowe",
+        "telemedicine": false
+    },
+    {
+        "id": 8674,
+        "name": "Rtg celowane kręgu",
+        "telemedicine": false
+    },
+    {
+        "id": 8233,
+        "name": "Rtg czaszki - kanały nerwów czaszkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8235,
+        "name": "Rtg czaszki - oczodoły",
+        "telemedicine": false
+    },
+    {
+        "id": 4286,
+        "name": "Rtg czaszki - PA + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8229,
+        "name": "Rtg czaszki - PA+bok+podstawa",
+        "telemedicine": false
+    },
+    {
+        "id": 8231,
+        "name": "Rtg czaszki - podstawa",
+        "telemedicine": false
+    },
+    {
+        "id": 6127,
+        "name": "Rtg czaszki - półosiowe wg Orleya",
+        "telemedicine": false
+    },
+    {
+        "id": 8236,
+        "name": "Rtg czaszki - siodło tureckie",
+        "telemedicine": false
+    },
+    {
+        "id": 6128,
+        "name": "Rtg czaszki - styczne",
+        "telemedicine": false
+    },
+    {
+        "id": 4297,
+        "name": "Rtg czynnościowe kręgosłupa lędźwiowego",
+        "telemedicine": false
+    },
+    {
+        "id": 4292,
+        "name": "Rtg czynnościowe kręgosłupa szyjnego",
+        "telemedicine": false
+    },
+    {
+        "id": 4288,
+        "name": "Rtg czynnościowe stawów skroniowo  żuchwowych",
+        "telemedicine": false
+    },
+    {
+        "id": 4321,
+        "name": "Rtg jamy brzusznej - na leżąco",
+        "telemedicine": false
+    },
+    {
+        "id": 6115,
+        "name": "Rtg jamy brzusznej - na stojąco",
+        "telemedicine": false
+    },
+    {
+        "id": 4311,
+        "name": "Rtg klatki piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 8237,
+        "name": "Rtg klatki piersiowej - bok z barytem",
+        "telemedicine": false
+    },
+    {
+        "id": 6109,
+        "name": "Rtg klatki piersiowej - i bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8668,
+        "name": "Rtg klatki piersiowej - PA + bok z barytem",
+        "telemedicine": false
+    },
+    {
+        "id": 6112,
+        "name": "Rtg klatki piersiowej - tarczycy, tchawicy",
+        "telemedicine": false
+    },
+    {
+        "id": 4298,
+        "name": "Rtg kości krzyżowej i guzicznej",
+        "telemedicine": false
+    },
+    {
+        "id": 6124,
+        "name": "Rtg kości łódeczkowatej - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 3393,
+        "name": "Rtg kości łódeczkowatej - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 8300,
+        "name": "Rtg kości skroniowych - transorbitalne",
+        "telemedicine": false
+    },
+    {
+        "id": 8299,
+        "name": "Rtg kości skroniowych - wg Schullera/ Steversa",
+        "telemedicine": false
+    },
+    {
+        "id": 8677,
+        "name": "Rtg kości śródstopia",
+        "telemedicine": false
+    },
+    {
+        "id": 6134,
+        "name": "Rtg kości udowej AP + bok - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 4335,
+        "name": "Rtg kości udowej AP + bok - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 4295,
+        "name": "Rtg kręgosłupa AP na stojąco - (skolioza)",
+        "telemedicine": false
+    },
+    {
+        "id": 7228,
+        "name": "Rtg kręgosłupa AP na stojąco - + bok (skolioza)",
+        "telemedicine": false
+    },
+    {
+        "id": 8682,
+        "name": "Rtg kręgosłupa lędźwiowego - AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8686,
+        "name": "Rtg kręgosłupa lędźwiowego - AP + bok + skos",
+        "telemedicine": false
+    },
+    {
+        "id": 8689,
+        "name": "Rtg kręgosłupa lędźwiowego - bok",
+        "telemedicine": false
+    },
+    {
+        "id": 4296,
+        "name": "Rtg kręgosłupa lędźwiowo  krzyżowego  skosy",
+        "telemedicine": false
+    },
+    {
+        "id": 4294,
+        "name": "Rtg kręgosłupa lędźwiowo  krzyżowego AP + Bok",
+        "telemedicine": false
+    },
+    {
+        "id": 4299,
+        "name": "Rtg kręgosłupa piersiowego",
+        "telemedicine": false
+    },
+    {
+        "id": 8722,
+        "name": "Rtg kręgosłupa piersiowego - AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8724,
+        "name": "Rtg kręgosłupa piersiowego - AP + bok + skos",
+        "telemedicine": false
+    },
+    {
+        "id": 8726,
+        "name": "Rtg kręgosłupa piersiowego - bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8718,
+        "name": "Rtg kręgosłupa piersiowego - skosy",
+        "telemedicine": false
+    },
+    {
+        "id": 4290,
+        "name": "Rtg kręgosłupa szyjnego",
+        "telemedicine": false
+    },
+    {
+        "id": 9345,
+        "name": "Rtg kręgosłupa szyjnego - AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8670,
+        "name": "Rtg kręgosłupa szyjnego - bok",
+        "telemedicine": false
+    },
+    {
+        "id": 8671,
+        "name": "Rtg kręgosłupa szyjnego - bok + skosy (3 projekcje)",
+        "telemedicine": false
+    },
+    {
+        "id": 6014,
+        "name": "Rtg kręgosłupa szyjnego - skosy",
+        "telemedicine": false
+    },
+    {
+        "id": 8878,
+        "name": "Rtg krtani",
+        "telemedicine": false
+    },
+    {
+        "id": 8880,
+        "name": "Rtg krtani - tomogram",
+        "telemedicine": false
+    },
+    {
+        "id": 6119,
+        "name": "Rtg łokcia / przedramienia - lewego AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 6120,
+        "name": "Rtg łokcia / przedramienia - obu AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 4326,
+        "name": "Rtg łokcia / przedramienia - prawego AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 6111,
+        "name": "Rtg łopatki - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 4307,
+        "name": "Rtg łopatki - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 4332,
+        "name": "Rtg miednicy i stawów biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8730,
+        "name": "Rtg mostka AP",
+        "telemedicine": false
+    },
+    {
+        "id": 4305,
+        "name": "Rtg mostka/boczne klatki piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 11607,
+        "name": "RTG nadgarstka - PA + bok obu",
+        "telemedicine": false
+    },
+    {
+        "id": 8736,
+        "name": "Rtg nadgarstka boczne - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 8740,
+        "name": "Rtg nadgarstka boczne - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 8738,
+        "name": "Rtg nadgarstka boczne - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 4329,
+        "name": "Rtg nadgarstka/dłoni PA + bok/skos - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 6123,
+        "name": "Rtg nadgarstka/dłoni PA + bok/skos - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 6122,
+        "name": "Rtg nadgarstka/dłoni PA + bok/skos - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 4285,
+        "name": "Rtg nosa  boczne",
+        "telemedicine": false
+    },
+    {
+        "id": 4279,
+        "name": "Rtg noso - gardła",
+        "telemedicine": false
+    },
+    {
+        "id": 6110,
+        "name": "Rtg obojczyka - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 4306,
+        "name": "Rtg obojczyka - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 4330,
+        "name": "Rtg obu nadgarstków/dłoni PA + bok/skos",
+        "telemedicine": false
+    },
+    {
+        "id": 8804,
+        "name": "Rtg oczodołów - + boczne (2 projekcje)",
+        "telemedicine": false
+    },
+    {
+        "id": 6147,
+        "name": "Rtg palca/palców stopy AP + bok/skos - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 3396,
+        "name": "Rtg palca/palców stopy AP + bok/skos - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 6125,
+        "name": "Rtg palec/palce PA + bok / skos - lewej ręki",
+        "telemedicine": false
+    },
+    {
+        "id": 6126,
+        "name": "Rtg palec/palce PA + bok / skos - obu rąk",
+        "telemedicine": false
+    },
+    {
+        "id": 4331,
+        "name": "Rtg palec/palce PA + bok / skos - prawej ręki",
+        "telemedicine": false
+    },
+    {
+        "id": 11541,
+        "name": "Rtg pantomogram - zębów",
+        "telemedicine": false
+    },
+    {
+        "id": 8805,
+        "name": "Rtg pięty + osiowe",
+        "telemedicine": false
+    },
+    {
+        "id": 8807,
+        "name": "Rtg pięty boczne",
+        "telemedicine": false
+    },
+    {
+        "id": 6141,
+        "name": "Rtg podudzia (goleni) AP + bok - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 6142,
+        "name": "Rtg podudzia (goleni) AP + bok - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 4341,
+        "name": "Rtg podudzia (goleni) AP + bok - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 7298,
+        "name": "Rtg przedramienia - lewego AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 7299,
+        "name": "Rtg przedramienia - obu przedramion AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 7297,
+        "name": "Rtg przedramienia - prawego AP + bok",
+        "telemedicine": false
+    },
+    {
+        "id": 4281,
+        "name": "Rtg punktowe zdjęcie zęba",
+        "telemedicine": false
+    },
+    {
+        "id": 8264,
+        "name": "Rtg ręki - bok- lewa",
+        "telemedicine": false
+    },
+    {
+        "id": 8265,
+        "name": "Rtg ręki - bok- prawa",
+        "telemedicine": false
+    },
+    {
+        "id": 11602,
+        "name": "Rtg ręki - PA + skos lewa",
+        "telemedicine": false
+    },
+    {
+        "id": 11603,
+        "name": "Rtg ręki - PA + skos prawa",
+        "telemedicine": false
+    },
+    {
+        "id": 8259,
+        "name": "Rtg ręki - PA lewa",
+        "telemedicine": false
+    },
+    {
+        "id": 6121,
+        "name": "Rtg ręki - PA obu",
+        "telemedicine": false
+    },
+    {
+        "id": 8262,
+        "name": "Rtg ręki - PA prawa",
+        "telemedicine": false
+    },
+    {
+        "id": 4327,
+        "name": "Rtg ręki - wiek kostny",
+        "telemedicine": false
+    },
+    {
+        "id": 6137,
+        "name": "Rtg rzepki osiowe - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 6138,
+        "name": "Rtg rzepki osiowe - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 6139,
+        "name": "Rtg rzepki osiowe - obu w 2 ustawieniach",
+        "telemedicine": false
+    },
+    {
+        "id": 6140,
+        "name": "Rtg rzepki osiowe - obu w 3 ustawieniach",
+        "telemedicine": false
+    },
+    {
+        "id": 4339,
+        "name": "Rtg rzepki osiowe - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 8813,
+        "name": "Rtg stawów krzyżowo - biodrowych - PA",
+        "telemedicine": false
+    },
+    {
+        "id": 8810,
+        "name": "Rtg stawów krzyżowo - biodrowych - skosy",
+        "telemedicine": false
+    },
+    {
+        "id": 6132,
+        "name": "Rtg stawu biodrowego AP - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 8660,
+        "name": "Rtg stawu biodrowego AP - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 4333,
+        "name": "Rtg stawu biodrowego AP - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 6133,
+        "name": "Rtg stawu biodrowego osiowe - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 4334,
+        "name": "Rtg stawu biodrowego osiowe - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 6135,
+        "name": "Rtg stawu kolanowego AP + bok - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 6136,
+        "name": "Rtg stawu kolanowego AP + bok - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 13040,
+        "name": "Rtg stawu kolanowego AP + bok - obu na stojąco",
+        "telemedicine": false
+    },
+    {
+        "id": 4337,
+        "name": "Rtg stawu kolanowego AP + bok - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 8815,
+        "name": "Rtg stawu kolanowego boczne",
+        "telemedicine": false
+    },
+    {
+        "id": 11284,
+        "name": "RTG stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 6143,
+        "name": "Rtg stawu skokowo - goleniowego AP + bok - lewego",
+        "telemedicine": false
+    },
+    {
+        "id": 6144,
+        "name": "Rtg stawu skokowo - goleniowego AP + bok - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 4345,
+        "name": "Rtg stawu skokowo - goleniowego AP + bok - prawego",
+        "telemedicine": false
+    },
+    {
+        "id": 6145,
+        "name": "Rtg stopy AP + bok/skos - lewej",
+        "telemedicine": false
+    },
+    {
+        "id": 6146,
+        "name": "Rtg stopy AP + bok/skos - obu",
+        "telemedicine": false
+    },
+    {
+        "id": 4343,
+        "name": "Rtg stopy AP + bok/skos - prawej",
+        "telemedicine": false
+    },
+    {
+        "id": 8818,
+        "name": "Rtg stóp AP (porównawczo)",
+        "telemedicine": false
+    },
+    {
+        "id": 8285,
+        "name": "Rtg szyi - bok",
+        "telemedicine": false
+    },
+    {
+        "id": 4282,
+        "name": "Rtg teleradiogram - cefalometria cyfrowa",
+        "telemedicine": false
+    },
+    {
+        "id": 8819,
+        "name": "Rtg twarzoczaszki",
+        "telemedicine": false
+    },
+    {
+        "id": 8821,
+        "name": "Rtg uda + podudzia",
+        "telemedicine": false
+    },
+    {
+        "id": 4284,
+        "name": "Rtg zatok przynosowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8822,
+        "name": "Rtg ząb obrotnika",
+        "telemedicine": false
+    },
+    {
+        "id": 4304,
+        "name": "Rtg żeber (1 strona) w 2 skosach",
+        "telemedicine": false
+    },
+    {
+        "id": 8287,
+        "name": "Rtg żuchwy",
+        "telemedicine": false
+    },
+    {
+        "id": 9,
+        "name": "Rezonans Magnetyczny (MR)",
+        "telemedicine": false
+    },
+    {
+        "id": 12815,
+        "name": "Rezonans magnetyczny - angio aorty brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 12817,
+        "name": "Rezonans magnetyczny - angio aorty brzusznej i tętnic biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 12816,
+        "name": "Rezonans magnetyczny - angio aorty piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 7705,
+        "name": "Rezonans magnetyczny - angio tętnic kończyn dolnych",
+        "telemedicine": false
+    },
+    {
+        "id": 7679,
+        "name": "Rezonans magnetyczny - angio tętnic mózgowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8321,
+        "name": "Rezonans magnetyczny - angio tętnic nerkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 12818,
+        "name": "Rezonans magnetyczny - angio tętnic szyjnych",
+        "telemedicine": false
+    },
+    {
+        "id": 9842,
+        "name": "Rezonans magnetyczny - artrografia nadgarstka",
+        "telemedicine": false
+    },
+    {
+        "id": 9448,
+        "name": "Rezonans magnetyczny - artrografia stawu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 12989,
+        "name": "Rezonans magnetyczny - artrografia stawu biodrowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9450,
+        "name": "Rezonans magnetyczny - artrografia stawu kolanowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9449,
+        "name": "Rezonans magnetyczny - artrografia stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 9451,
+        "name": "Rezonans magnetyczny - artrografia stawu skokowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7694,
+        "name": "Rezonans magnetyczny - cholangiografia",
+        "telemedicine": false
+    },
+    {
+        "id": 12813,
+        "name": "Rezonans magnetyczny - enterografia",
+        "telemedicine": false
+    },
+    {
+        "id": 7668,
+        "name": "Rezonans magnetyczny - głowy",
+        "telemedicine": false
+    },
+    {
+        "id": 8419,
+        "name": "Rezonans magnetyczny - głowy - funkcjonalny (czynościowy)",
+        "telemedicine": false
+    },
+    {
+        "id": 12803,
+        "name": "Rezonans magnetyczny - głowy - procedura cine",
+        "telemedicine": false
+    },
+    {
+        "id": 7680,
+        "name": "Rezonans magnetyczny - głowy i angio tętnic mózgowych",
+        "telemedicine": false
+    },
+    {
+        "id": 13057,
+        "name": "Rezonans magnetyczny - głowy i kręgosłupa szyjnego (C)",
+        "telemedicine": false
+    },
+    {
+        "id": 12806,
+        "name": "Rezonans magnetyczny - głowy i procedura cine głowy",
+        "telemedicine": false
+    },
+    {
+        "id": 13064,
+        "name": "Rezonans magnetyczny - głowy i przysadki mózgowej",
+        "telemedicine": false
+    },
+    {
+        "id": 13058,
+        "name": "Rezonans magnetyczny - głowy i szyi",
+        "telemedicine": false
+    },
+    {
+        "id": 7396,
+        "name": "Rezonans magnetyczny - jamy brzusznej",
+        "telemedicine": false
+    },
+    {
+        "id": 7686,
+        "name": "Rezonans magnetyczny - jamy brzusznej i cholangiografia",
+        "telemedicine": false
+    },
+    {
+        "id": 13065,
+        "name": "Rezonans magnetyczny - jamy brzusznej i cholangiopankreatografia",
+        "telemedicine": false
+    },
+    {
+        "id": 7397,
+        "name": "Rezonans magnetyczny - jamy brzusznej i miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 15750,
+        "name": "Rezonans magnetyczny - jąder",
+        "telemedicine": false
+    },
+    {
+        "id": 15753,
+        "name": "Rezonans magnetyczny - kątów mostowo - móżdżkowych",
+        "telemedicine": false
+    },
+    {
+        "id": 7395,
+        "name": "Rezonans magnetyczny - klatki piersiowej",
+        "telemedicine": false
+    },
+    {
+        "id": 13044,
+        "name": "Rezonans magnetyczny - kości skroniowych",
+        "telemedicine": false
+    },
+    {
+        "id": 7674,
+        "name": "Rezonans magnetyczny - kręgosłupa lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 7393,
+        "name": "Rezonans magnetyczny - kręgosłupa piersiowego (Th)",
+        "telemedicine": false
+    },
+    {
+        "id": 13059,
+        "name": "Rezonans magnetyczny - kręgosłupa piersiowego (Th) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 7672,
+        "name": "Rezonans magnetyczny - kręgosłupa szyjnego (C)",
+        "telemedicine": false
+    },
+    {
+        "id": 13060,
+        "name": "Rezonans magnetyczny - kręgosłupa szyjnego (C) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 13061,
+        "name": "Rezonans magnetyczny - kręgosłupa szyjnego (C) i piersiowego (Th)",
+        "telemedicine": false
+    },
+    {
+        "id": 12808,
+        "name": "Rezonans magnetyczny - kręgosłupa szyjnego (C), piersiowego (Th) i lędźwiowo-krzyżowego (LS)",
+        "telemedicine": false
+    },
+    {
+        "id": 13062,
+        "name": "Rezonans magnetyczny - krtani",
+        "telemedicine": false
+    },
+    {
+        "id": 12812,
+        "name": "Rezonans magnetyczny - łopatki",
+        "telemedicine": false
+    },
+    {
+        "id": 13066,
+        "name": "Rezonans magnetyczny - miednicy kostnej",
+        "telemedicine": false
+    },
+    {
+        "id": 7399,
+        "name": "Rezonans magnetyczny - miednicy mniejszej",
+        "telemedicine": false
+    },
+    {
+        "id": 7703,
+        "name": "Rezonans magnetyczny - morfologiczne serca z il. oceną funkcji skurczowej i żywotności",
+        "telemedicine": false
+    },
+    {
+        "id": 13223,
+        "name": "Rezonans magnetyczny - nadbrzusza",
+        "telemedicine": false
+    },
+    {
+        "id": 7402,
+        "name": "Rezonans magnetyczny - nadgarstka",
+        "telemedicine": false
+    },
+    {
+        "id": 7398,
+        "name": "Rezonans magnetyczny - nadnerczy",
+        "telemedicine": false
+    },
+    {
+        "id": 12819,
+        "name": "Rezonans magnetyczny - nerek",
+        "telemedicine": false
+    },
+    {
+        "id": 13067,
+        "name": "Rezonans magnetyczny - neuronawigacja",
+        "telemedicine": false
+    },
+    {
+        "id": 7389,
+        "name": "Rezonans magnetyczny - oczodołów",
+        "telemedicine": false
+    },
+    {
+        "id": 13068,
+        "name": "Rezonans magnetyczny - pankreatografia",
+        "telemedicine": false
+    },
+    {
+        "id": 13621,
+        "name": "Rezonans magnetyczny - perfuzja mózgowa",
+        "telemedicine": false
+    },
+    {
+        "id": 7709,
+        "name": "Rezonans magnetyczny - piersi",
+        "telemedicine": false
+    },
+    {
+        "id": 7698,
+        "name": "Rezonans magnetyczny - płodu",
+        "telemedicine": false
+    },
+    {
+        "id": 7699,
+        "name": "Rezonans magnetyczny - podudzia",
+        "telemedicine": false
+    },
+    {
+        "id": 15751,
+        "name": "Rezonans magnetyczny - prącia i moszny",
+        "telemedicine": false
+    },
+    {
+        "id": 12890,
+        "name": "Rezonans magnetyczny - prostaty cewką brzuszną (przez powłoki brzuszne)",
+        "telemedicine": false
+    },
+    {
+        "id": 9432,
+        "name": "Rezonans magnetyczny - przedramienia",
+        "telemedicine": false
+    },
+    {
+        "id": 15806,
+        "name": "Rezonans magnetyczny - przetoki okołodobytniczej",
+        "telemedicine": false
+    },
+    {
+        "id": 7671,
+        "name": "Rezonans magnetyczny - przysadki mózgowej",
+        "telemedicine": false
+    },
+    {
+        "id": 7700,
+        "name": "Rezonans magnetyczny - ramienia",
+        "telemedicine": false
+    },
+    {
+        "id": 7701,
+        "name": "Rezonans magnetyczny - ręki",
+        "telemedicine": false
+    },
+    {
+        "id": 7702,
+        "name": "Rezonans magnetyczny - serca z ilościową oceną funkcji skurczowej",
+        "telemedicine": false
+    },
+    {
+        "id": 13224,
+        "name": "Rezonans magnetyczny - serca z ilościową oceną funkcji skurczowej i żywotności",
+        "telemedicine": false
+    },
+    {
+        "id": 10193,
+        "name": "Rezonans magnetyczny - serca z ilościową oceną funkcji skurczowej i żywotności + perfuzja",
+        "telemedicine": false
+    },
+    {
+        "id": 7704,
+        "name": "Rezonans magnetyczny - serca z ilościową oceną przepływu krwi",
+        "telemedicine": false
+    },
+    {
+        "id": 12798,
+        "name": "Rezonans magnetyczny - spektroskopia",
+        "telemedicine": false
+    },
+    {
+        "id": 12811,
+        "name": "Rezonans magnetyczny - splotu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 15752,
+        "name": "Rezonans magnetyczny - splotu lędźwiowo - krzyżowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7697,
+        "name": "Rezonans magnetyczny - stawów krzyżowo-biodrowych",
+        "telemedicine": false
+    },
+    {
+        "id": 12809,
+        "name": "Rezonans magnetyczny - stawów mostkowo-obojczykowych",
+        "telemedicine": false
+    },
+    {
+        "id": 12807,
+        "name": "Rezonans magnetyczny - stawów skroniowo-żuchwowych",
+        "telemedicine": false
+    },
+    {
+        "id": 7400,
+        "name": "Rezonans magnetyczny - stawu barkowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7403,
+        "name": "Rezonans magnetyczny - stawu biodrowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7670,
+        "name": "Rezonans magnetyczny - stawu kolanowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7696,
+        "name": "Rezonans magnetyczny - stawu kolanowego z chrząstkogramem kolorowym",
+        "telemedicine": false
+    },
+    {
+        "id": 7401,
+        "name": "Rezonans magnetyczny - stawu łokciowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7405,
+        "name": "Rezonans magnetyczny - stawu skokowego",
+        "telemedicine": false
+    },
+    {
+        "id": 7406,
+        "name": "Rezonans magnetyczny - stopy",
+        "telemedicine": false
+    },
+    {
+        "id": 7391,
+        "name": "Rezonans magnetyczny - szyi",
+        "telemedicine": false
+    },
+    {
+        "id": 13063,
+        "name": "Rezonans magnetyczny - ślinianek",
+        "telemedicine": false
+    },
+    {
+        "id": 12821,
+        "name": "Rezonans magnetyczny - trzustki",
+        "telemedicine": false
+    },
+    {
+        "id": 7390,
+        "name": "Rezonans magnetyczny - twarzoczaszki",
+        "telemedicine": false
+    },
+    {
+        "id": 7707,
+        "name": "Rezonans magnetyczny - uda",
+        "telemedicine": false
+    },
+    {
+        "id": 8324,
+        "name": "Rezonans magnetyczny - urografia",
+        "telemedicine": false
+    },
+    {
+        "id": 12820,
+        "name": "Rezonans magnetyczny - wątroby",
+        "telemedicine": false
+    },
+    {
+        "id": 13056,
+        "name": "Rezonans magnetyczny - wenografia naczyń mózgowych",
+        "telemedicine": false
+    },
+    {
+        "id": 8320,
+        "name": "Rezonans magnetyczny - zatok",
+        "telemedicine": false
+    },
+    {
+        "id": 11,
+        "name": "Pozostałe badania",
+        "telemedicine": false
+    },
+    {
+        "id": 7094,
+        "name": "Analiza składu ciała",
+        "telemedicine": false
+    },
+    {
+        "id": 5857,
+        "name": "Audiometr standardowy (tonalna)",
+        "telemedicine": false
+    },
+    {
+        "id": 4786,
+        "name": "Audiometria impedancyjna",
+        "telemedicine": false
+    },
+    {
+        "id": 7976,
+        "name": "Audiometria nadprogowa",
+        "telemedicine": false
+    },
+    {
+        "id": 7975,
+        "name": "Audiometria słowna",
+        "telemedicine": false
+    },
+    {
+        "id": 6301,
+        "name": "Badanie EEG",
+        "telemedicine": false
+    },
+    {
+        "id": 8937,
+        "name": "Badanie EKG - spoczynkowe",
+        "telemedicine": false
+    },
+    {
+        "id": 12886,
+        "name": "Inhalacja AMSA (dwa leki)",
+        "telemedicine": false
+    },
+    {
+        "id": 12604,
+        "name": "Inhalacja AMSA (jeden lek)",
+        "telemedicine": false
+    },
+    {
+        "id": 4780,
+        "name": "Komputerowe pole widzenia",
+        "telemedicine": false
+    },
+    {
+        "id": 9202,
+        "name": "Pobranie krwi - i innych materiałów dzieci chore",
+        "telemedicine": false
+    },
+    {
+        "id": 14292,
+        "name": "Pobranie krwi - i innych materiałów dzieci chore - NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 9201,
+        "name": "Pobranie krwi - i innych materiałów dzieci zdrowe",
+        "telemedicine": false
+    },
+    {
+        "id": 14293,
+        "name": "Pobranie krwi - i innych materiałów dzieci zdrowe - NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 11507,
+        "name": "Pobranie krwi - Test CoVID -19 przeciwciała IgG",
+        "telemedicine": false
+    },
+    {
+        "id": 14395,
+        "name": "Pozostawienie materiału do badania (mocz/kał)",
+        "telemedicine": false
+    },
+    {
+        "id": 14396,
+        "name": "Pozostawienie materiału do badania (mocz/kał) - NFZ (POZ)",
+        "telemedicine": false
+    },
+    {
+        "id": 6281,
+        "name": "Soczewki kontaktowe - dobór",
+        "telemedicine": false
+    },
+    {
+        "id": 4700,
+        "name": "Spirometria",
+        "telemedicine": false
+    },
+    {
+        "id": 4699,
+        "name": "Spirometria - próba rozkurczowa",
+        "telemedicine": false
+    },
+    {
+        "id": 14099,
+        "name": "Test COVID -19 - genetyczny met.  RT – PCR - wymaz",
+        "telemedicine": false
+    },
+    {
+        "id": 14818,
+        "name": "Wodorowo - Metanowy test oddechowy - SIBO",
+        "telemedicine": false
+    },
+    {
+        "id": 12607,
+        "name": "Wodorowy test oddechowy - FRUKTOZA",
+        "telemedicine": false
+    },
+    {
+        "id": 12858,
+        "name": "Wodorowy test oddechowy - GLUKOZA",
+        "telemedicine": false
+    },
+    {
+        "id": 12606,
+        "name": "Wodorowy test oddechowy - LAKTOZA",
+        "telemedicine": false
+    },
+    {
+        "id": 12605,
+        "name": "Wodorowy test oddechowy - SIBO/LAKTULOZA",
+        "telemedicine": false
+    },
+    {
+        "id": 4656,
+        "name": "Założenie Holtera ciśnieniowego",
+        "telemedicine": false
+    },
+    {
+        "id": 4655,
+        "name": "Założenie Holtera EKG",
+        "telemedicine": false
+    },
+    {
+        "id": 7147,
+        "name": "Założenie Holtera EKG - z 12 odprowadzeniami",
+        "telemedicine": false
+    },
+    {
+        "id": 6303,
+        "name": "Założenie Holtera EVENT",
+        "telemedicine": false
+    },
+    {
+        "id": 14115,
+        "name": "Zaświadczenie + Test COVID - 19 - genetyczny met.  RT – PCR - wymaz",
+        "telemedicine": false
+    },
+    {
+        "id": 11832,
+        "name": "Endoskopia laryngologiczna - Wideofiberoskopia górnych dróg oddechowych",
+        "telemedicine": false
+    },
+    {
+        "id": 17,
+        "name": "Inne usługi",
+        "telemedicine": false
+    },
+    {
+        "id": 6,
+        "name": "Rehabilitacja",
+        "telemedicine": false
+    },
+    {
+        "id": 14,
+        "name": "Wizyty domowe",
+        "telemedicine": false
+    }
+]
