@@ -1,5 +1,5 @@
-PyYAML==6.0
-requests==2.31.0
-schedule==1.2.0
+PyYAML==6.0.2
+requests==2.32
+schedule==1.2.2
 loguru==0.7.2
 jsonschema==4.23.0

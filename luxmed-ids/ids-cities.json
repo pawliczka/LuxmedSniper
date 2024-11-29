@@ -1,0 +1,126 @@
+[
+    {
+        "id": 70,
+        "name": "Białystok"
+    },
+    {
+        "id": 12,
+        "name": "Bielsk Podlaski"
+    },
+    {
+        "id": 100,
+        "name": "Bielsko-Biała"
+    },
+    {
+        "id": 10,
+        "name": "Bydgoszcz"
+    },
+    {
+        "id": 84,
+        "name": "Częstochowa"
+    },
+    {
+        "id": 63,
+        "name": "Elbląg"
+    },
+    {
+        "id": 60,
+        "name": "Gorzów Wielkopolski"
+    },
+    {
+        "id": 88,
+        "name": "Inowrocław"
+    },
+    {
+        "id": 101,
+        "name": "Kalisz"
+    },
+    {
+        "id": 17,
+        "name": "Katowice - Gliwice - Tychy"
+    },
+    {
+        "id": 85,
+        "name": "Kłobuck"
+    },
+    {
+        "id": 43,
+        "name": "Konin"
+    },
+    {
+        "id": 71,
+        "name": "Kostrzyn nad Odrą"
+    },
+    {
+        "id": 3,
+        "name": "Kraków"
+    },
+    {
+        "id": 49,
+        "name": "Lublin"
+    },
+    {
+        "id": 87,
+        "name": "Lubliniec"
+    },
+    {
+        "id": 89,
+        "name": "Łomża"
+    },
+    {
+        "id": 4,
+        "name": "Łódź"
+    },
+    {
+        "id": 80,
+        "name": "Mielec"
+    },
+    {
+        "id": 99,
+        "name": "Nowa Sól"
+    },
+    {
+        "id": 112,
+        "name": "Nowy Sącz"
+    },
+    {
+        "id": 20,
+        "name": "Olsztyn"
+    },
+    {
+        "id": 21,
+        "name": "Opole"
+    },
+    {
+        "id": 8,
+        "name": "Poznań"
+    },
+    {
+        "id": 74,
+        "name": "Rzeszów"
+    },
+    {
+        "id": 24,
+        "name": "Szczecin"
+    },
+    {
+        "id": 73,
+        "name": "Toruń"
+    },
+    {
+        "id": 45,
+        "name": "Trójmiasto"
+    },
+    {
+        "id": 81,
+        "name": "Wałbrzych"
+    },
+    {
+        "id": 1,
+        "name": "Warszawa"
+    },
+    {
+        "id": 5,
+        "name": "Wrocław"
+    }
+]
