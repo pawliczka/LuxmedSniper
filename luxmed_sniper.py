@@ -256,7 +256,7 @@ class LuxMedSniper:
                 appointments = self._get_appointments_new_portal(doctor_locator)
                 if not appointments:
                     logger.info(f"No appointments found for: {doctor_locator['name']}")
-                    return
+                    continue
                 for appointment in appointments:
                     logger.info(
                         "Appointment found for: {app_name}! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
