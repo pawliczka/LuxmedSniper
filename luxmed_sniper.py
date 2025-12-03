@@ -268,7 +268,7 @@ class LuxMedSniper:
                             "Notification sent for: {app_name}! {AppointmentDate} at {ClinicPublicName} - {DoctorName}".format(
                                 **appointment, app_name=doctor_locator['name']))
                     else:
-                        logger.info(f'Notification was already sent for: {doctor_locator['name']}')
+                        logger.info(f"Notification was already sent for: {doctor_locator['name']}")
             except Exception as e:
                 logger.error(f'Looking for appointments for {doctor_locator} failed, reason: {e}')
 
