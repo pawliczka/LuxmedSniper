@@ -1,5 +1,6 @@
-PyYAML==6.0.2
-requests==2.32.4
+PyYAML==6.0.3
+requests >= 2.32.5
 schedule==1.2.2
-loguru==0.7.2
+loguru==0.7.3
 jsonschema==4.23.0
+pydantic >= 2.12.5

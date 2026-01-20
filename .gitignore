@@ -106,8 +106,13 @@ venv.bak/
 # local
 local-*.yaml
 .idea
+configs
+data
 
 # shelve files
 *.bak
 *.dat
 *.dir
+
+# luxmed sniper specific files
+cities.json
