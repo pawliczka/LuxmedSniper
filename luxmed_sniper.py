@@ -21,7 +21,7 @@ from zoneinfo import ZoneInfo
 import requests
 import schedule
 import yaml
-from loguru import logger, BasicHandlerConfig, FileHandlerConfig
+from loguru import logger
 from pydantic import BaseModel, Field, model_validator
 
 
@@ -496,8 +496,8 @@ def setup_logging() -> None:
     requests_log.propagate = True
 
     handlers = [
-        BasicHandlerConfig(sink=sys.stdout, level=os.environ.get("LOGURU_LEVEL", "INFO")),
-        FileHandlerConfig(sink="debug.log", format="{time} - {message}", serialize=True,rotation="1 week"),
+        dict(sink=sys.stdout, level=os.environ.get("LOGURU_LEVEL", "INFO")),
+        dict(sink="debug.log", format="{time} - {message}", serialize=True, rotation="1 week"),
     ]
     logger.configure(handlers=handlers)
 
