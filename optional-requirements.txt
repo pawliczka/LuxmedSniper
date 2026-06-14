@@ -1,5 +1,4 @@
-PyGObject==3.0.0
-slack-sdk==3.33.3
+PyGObject==3.54.5
+slack-sdk==3.39.0
 telegram-send==0.37
 pushbullet.py==0.12.0
-python-telegram-bot==21.7
