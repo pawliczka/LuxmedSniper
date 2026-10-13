@@ -362,10 +362,12 @@ class LuxMedSniper:
         else:
             db = {}
 
-        # 2. Update DB
-        notifications = db.get(appointment.DoctorName, [])
+        # 2. Update DB 
+  		
+        db_key = f"{appointment.service_id}_{appointment.clinic_id}_{appointment.DoctorName}"
+        notifications = db.get(db_key, [])
         notifications.append(appointment.AppointmentDate.isoformat())
-        db[appointment.DoctorName] = notifications
+        db[db_key] = notifications
 
         # class DateTimeEncoder(json.JSONEncoder):
         #     def default(self, obj):
@@ -392,7 +394,8 @@ class LuxMedSniper:
             logger.exception("Database file corrupted, treating as empty")
             return False
 
-        notifications = map(datetime.datetime.fromisoformat, db.get(appointment.DoctorName, []))
+        db_key = f"{appointment.service_id}_{appointment.clinic_id}_{appointment.DoctorName}"
+        notifications = map(datetime.datetime.fromisoformat, db.get(db_key, []))
         return appointment.AppointmentDate in notifications
 
     def _send_notification(self, doctor_locator: DoctorLocator, appointment: Appointment) -> None:
